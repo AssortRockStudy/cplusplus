@@ -1,4 +1,5 @@
 #include <iostream>
+#include <conio.h>
 #include <Windows.h>
 
 char u_Name[100][10] = {};
@@ -20,7 +21,7 @@ void initUser()
 			scanf_s("%d", &answer);
 		}
 		printf("이름 입력(공백 포함 최대 9글자, 영문): ");
-		scanf_s("%9s", &u_Name[u_Count], sizeof(u_Name[u_Count]));
+		scanf_s("%9s", &u_Name[u_Count], sizeof(u_Name[u_Count] - 1));
 		printf("성별 입력(남성-> 1, 여성-> 2): ");
 		scanf_s("%d", &u_Sex[u_Count]);		
 		printf("나이 입력: ");
@@ -51,7 +52,7 @@ void printUser()
 		printf("- 유저 나이: %d\n", u_Age[i]);
 	}
 	printf("모든 회원을 출력했습니다. 아무 숫자를 입력하면 메인 화면으로 복귀합니다...");
-	scanf_s("%d", &i);
+	_getwch();
 }
 
 int main()
