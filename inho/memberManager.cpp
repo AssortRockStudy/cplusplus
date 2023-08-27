@@ -43,3 +43,8 @@ int MemberManager::inputMenu() {
 void MemberManager::printWelcomMsg() {
     cout << "안녕하세요 회원 정보 관리 시스템입니다!" << endl;
 };
+
+void MemberManager::printByeMsg() {
+    system("cls");
+    cout << "이용해주셔서 감사합니다!" << endl;
+};

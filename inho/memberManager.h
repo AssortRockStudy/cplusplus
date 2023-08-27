@@ -48,4 +48,5 @@ class MemberManager {
     void inputMember();
     void printAllMember();
     void printWelcomMsg();
+    void printByeMsg();
 };
