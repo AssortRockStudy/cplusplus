@@ -47,16 +47,25 @@ void MemberManager::inputMember() {
     cout << "회원 정보 입력 기능입니다. " << endl << endl;
     int more = 0;
     while (true) {
-        // 멤버 입력용 출력
-        cin.clear();
         Member* newMember = new Member();
-        cout << "이름을 입력해주세요: ";
-        cin >> newMember->name;
-        cout << "성별을 입력해주세요(남성: 1, 여성: 2): ";
-        cin >> newMember->sex;
-        cout << "나이를 입력해주세요: ";
-        cin >> newMember->age;
+        while (true) {
+            // 멤버 입력용 출력
+            cin.clear();
+            cout << "이름을 입력해주세요: ";
+            cin >> newMember->name;
+            cout << "성별을 입력해주세요(남성: 1, 여성: 2): ";
+            cin >> newMember->sex;
 
+            cout << "나이를 입력해주세요: ";
+            cin >> newMember->age;
+
+            if (newMember->isValid()) {
+                break;
+            } else {
+                cout << "유효하지 않은 정보입니다. " << endl;
+            }
+        }
+        cout << "성별은 " << newMember->sex << "입니다." << endl;
         members.push_back(newMember);
 
         cout << "추가로 회원을 입력하시겠습니까(yes: 1, no: 0)";
@@ -82,3 +91,22 @@ void MemberManager::printByeMsg() {
     system("cls");
     cout << "이용해주셔서 감사합니다!" << endl;
 };
+
+bool MemberManager::Member::isValid() {
+    bool valid = false;
+    // name 검증은 나중에
+
+    if (this->sex == Sex::MAN || this->sex == Sex::WOMAN) {
+        valid = true;
+    } else {
+        return false;
+    }
+
+    if (age > 0 && age < 120) {
+        valid = true;
+    } else {
+        return false;
+    }
+
+    return valid;
+}

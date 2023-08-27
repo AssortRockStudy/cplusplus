@@ -32,8 +32,11 @@ class MemberManager {
         Member(string _name, uint32_t _sex, uint32_t _age)
             : name(_name), sex(_sex), age(_age){};
         ~Member(){};
-    };
 
+       public:
+        bool isValid();
+    };
+    enum Sex { NO, MAN, WOMAN };
     enum Menu { NONE, INPUT, PRINTALL, QUIT, END };
 
     list<Member*> members;
