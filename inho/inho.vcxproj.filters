@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="MemberManager">
+      <UniqueIdentifier>{37d23d30-838e-4d35-b085-569e51f8a240}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="memberManager.cpp">
+      <Filter>MemberManager</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="memberManager.h">
+      <Filter>MemberManager</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
