@@ -47,28 +47,29 @@ void MemberManager::inputMember() {
     cout << "회원 정보 입력 기능입니다. " << endl << endl;
     int more = 0;
     while (true) {
-        Member* newMember = new Member();
+        Member newMember;
         while (true) {
             // 멤버 입력용 출력
             cin.clear();
             cout << "이름을 입력해주세요: ";
-            cin >> newMember->name;
+            cin >> newMember.name;
             cout << "성별을 입력해주세요(남성: 1, 여성: 2): ";
-            cin >> newMember->sex;
+            cin >> newMember.sex;
 
             cout << "나이를 입력해주세요: ";
-            cin >> newMember->age;
+            cin >> newMember.age;
 
-            if (newMember->isValid()) {
+            if (newMember.isValid()) {
                 break;
             } else {
-                cout << "유효하지 않은 정보입니다. " << endl;
+                cout << "유효하지 않은 정보입니다. " << endl << endl;
             }
         }
-        cout << "성별은 " << newMember->sex << "입니다." << endl;
-        members.push_back(newMember);
 
-        cout << "추가로 회원을 입력하시겠습니까(yes: 1, no: 0)";
+        members.push_back(newMember);
+        curCount++;
+
+        cout << "추가로 회원을 입력하시겠습니까(yes: 1, no: 0): ";
 
         cin >> more;
 
@@ -81,7 +82,24 @@ void MemberManager::inputMember() {
     system("cls");
 }
 
-void MemberManager::printAllMember() {}
+void MemberManager::printAllMember() {
+    if (curCount == 0) {
+        cout << "입력된 회원 정보가 없습니다." << endl;
+    }
+    for (auto it = members.begin(); it != members.end(); ++it) {
+        cout << "=====================" << endl << endl;
+        cout << *it << endl << endl;
+    }
+    cout << "=====================" << endl << endl;
+    cout << "총 " << curCount << "명 입니다." << endl;
+
+    uint32_t wait;
+    cout << endl << "아무키나 입력시 메인 메뉴로 돌아갑니다." << endl;
+
+    cin >> wait;
+
+    system("cls");
+}
 
 void MemberManager::printWelcomMsg() {
     cout << "안녕하세요 회원 정보 관리 시스템입니다!" << endl;

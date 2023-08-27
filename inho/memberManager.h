@@ -1,4 +1,4 @@
-ï»¿#pragma once
+#pragma once
 #include <iostream>
 #include <list>
 #include <string>
@@ -9,16 +9,20 @@ using std::endl;
 using std::list;
 using std::string;
 
-// ì½˜ì†”ì´ ì¼œì§€ë©´ ë©”ë‰´íŒì´ ì‹œì‘ë˜ì–´ì•¼ í•¨
-// ë©¤ë²„ ë§¤ë‹ˆì €ë¥¼ ì‹œì‘ì‹œì¼œ
-// ë©”ë‰´íŒì´ ë‚˜ì™€ì•¼ í•¨ ( 1. íšŒì› ë“±ë¡, 2. íšŒì› ì „ë¶€ ì¶œë ¥, 3. ëë‚´ê¸° )
-// íšŒì› í´ë˜ìŠ¤ê°€ í•„ìš”í•¨
+// ÄÜ¼ÖÀÌ ÄÑÁö¸é ¸Ş´ºÆÇÀÌ ½ÃÀÛµÇ¾î¾ß ÇÔ
+// ¸â¹ö ¸Å´ÏÀú¸¦ ½ÃÀÛ½ÃÄÑ
+// ¸Ş´ºÆÇÀÌ ³ª¿Í¾ß ÇÔ ( 1. È¸¿ø µî·Ï, 2. È¸¿ø ÀüºÎ Ãâ·Â, 3. ³¡³»±â )
+// È¸¿ø Å¬·¡½º°¡ ÇÊ¿äÇÔ
 
-// ë©”ì¸ë¶€í„° MemberManager ê°ì²´ ìƒì„± í›„, startí• ê±°ì„
-// ë¦¬ìŠ¤íŠ¸(íšŒì›), íšŒì› ìˆ˜,
+// ¸ŞÀÎºÎÅÍ MemberManager °´Ã¼ »ı¼º ÈÄ, startÇÒ°ÅÀÓ
+// ¸®½ºÆ®(È¸¿ø), È¸¿ø ¼ö,
 class MemberManager {
+   public:
+    enum Sex { NO, MAN, WOMAN };
+    enum Menu { NONE, INPUT, PRINTALL, QUIT, END };
+
    private:
-    // ë©¤ë²„ëŠ” ì´ë¦„, ì„±ë³„, ë‚˜ì´ë¥¼ ì…ë ¥ë°›ìŒ
+    // ¸â¹ö´Â ÀÌ¸§, ¼ºº°, ³ªÀÌ¸¦ ÀÔ·Â¹ŞÀ½
     class Member {
         friend class MemberManager;
 
@@ -35,11 +39,22 @@ class MemberManager {
 
        public:
         bool isValid();
-    };
-    enum Sex { NO, MAN, WOMAN };
-    enum Menu { NONE, INPUT, PRINTALL, QUIT, END };
 
-    list<Member*> members;
+        friend std::ostream& operator<<(std::ostream& os, const Member& mem) {
+            os << "ÀÌ¸§: " << mem.name << endl;
+            if (mem.sex == Sex::MAN) {
+                os << "¼ºº°: ³²ÀÚ" << endl;
+            } else if (mem.sex == Sex::WOMAN) {
+                os << "¼ºº°: ¿©ÀÚ" << endl;
+            } else {
+                os << "¼ºº°: ¹Ì»ó" << endl;
+            }
+            os << "³ªÀÌ: " << mem.age << endl;
+        return os;
+        }
+    };
+
+    list<Member> members;
     int curCount;
 
    public:
