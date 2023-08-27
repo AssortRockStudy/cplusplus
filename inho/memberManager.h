@@ -20,26 +20,28 @@ class MemberManager {
    private:
     // 멤버는 이름, 성별, 나이를 입력받음
     class Member {
+        friend class MemberManager;
+
        private:
         string name;
         uint32_t sex;
-        uint8_t age;
+        uint32_t age;
 
        public:
         Member() : name(""), sex(0), age(0){};
-        Member(string _name, uint32_t _sex, uint8_t _age)
+        Member(string _name, uint32_t _sex, uint32_t _age)
             : name(_name), sex(_sex), age(_age){};
         ~Member(){};
     };
 
     enum Menu { NONE, INPUT, PRINTALL, QUIT, END };
 
-    list<Member> members;
+    list<Member*> members;
     int curCount;
 
    public:
     MemberManager() : curCount(0), members(){};
-    ~MemberManager(){};
+    ~MemberManager() { members.clear(); };
 
    public:
     void Run();

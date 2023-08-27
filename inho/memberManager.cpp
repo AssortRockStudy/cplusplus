@@ -4,8 +4,8 @@
 
 void MemberManager::Run() {
     bool quit = false;
+    printWelcomMsg();
     while (!quit) {
-        printWelcomMsg();
         int select = inputMenu();
         switch (select) {
             case Menu::INPUT:
@@ -30,11 +30,11 @@ int MemberManager::inputMenu() {
         cout << "2. 회원 모두 출력" << endl;
         cout << "3. 끝내기" << endl;
 
-        cout << "실행할 번호를 입력해주세요: ";
+        cout << endl << "실행할 번호를 입력해주세요: ";
         cin >> input;
         system("cls");
         if (input < Menu::INPUT || input > Menu::END) {
-            cout << "잘못된 입력입니다. 다시 입력해주세요" << endl;
+            cout << "잘못된 입력입니다. 다시 입력해주세요" << endl << endl;
         } else {
             break;
         }
@@ -43,7 +43,34 @@ int MemberManager::inputMenu() {
     return input;
 };
 
-void MemberManager::inputMember() {}
+void MemberManager::inputMember() {
+    cout << "회원 정보 입력 기능입니다. " << endl << endl;
+    int more = 0;
+    while (true) {
+        // 멤버 입력용 출력
+        cin.clear();
+        Member* newMember = new Member();
+        cout << "이름을 입력해주세요: ";
+        cin >> newMember->name;
+        cout << "성별을 입력해주세요(남성: 1, 여성: 2): ";
+        cin >> newMember->sex;
+        cout << "나이를 입력해주세요: ";
+        cin >> newMember->age;
+
+        members.push_back(newMember);
+
+        cout << "추가로 회원을 입력하시겠습니까(yes: 1, no: 0)";
+
+        cin >> more;
+
+        if (!more) {
+            break;
+        } else {
+            cout << endl << "====================== 멤버 추가" << endl << endl;
+        }
+    }
+    system("cls");
+}
 
 void MemberManager::printAllMember() {}
 
