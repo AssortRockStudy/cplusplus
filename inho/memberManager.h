@@ -32,7 +32,7 @@ class MemberManager {
         ~Member(){};
     };
 
-    enum Menu { INPUT, PRINTALL, QUIT, END };
+    enum Menu { NONE, INPUT, PRINTALL, QUIT, END };
 
     list<Member> members;
     int curCount;
