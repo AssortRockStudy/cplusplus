@@ -2,17 +2,20 @@
 
 #include <Windows.h>
 
-void MemberManager::Start() {
+void MemberManager::Run() {
     bool quit = false;
     while (!quit) {
         printWelcomMsg();
         int select = inputMenu();
         switch (select) {
             case Menu::INPUT:
+                inputMember();
                 break;
             case Menu::PRINTALL:
+                printAllMember();
                 break;
             case Menu::QUIT:
+                printByeMsg();
                 quit = true;
                 break;
         }
@@ -39,6 +42,10 @@ int MemberManager::inputMenu() {
 
     return input;
 };
+
+void MemberManager::inputMember() {}
+
+void MemberManager::printAllMember() {}
 
 void MemberManager::printWelcomMsg() {
     cout << "안녕하세요 회원 정보 관리 시스템입니다!" << endl;

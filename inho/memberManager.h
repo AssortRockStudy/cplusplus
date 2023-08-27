@@ -42,7 +42,7 @@ class MemberManager {
     ~MemberManager(){};
 
    public:
-    void Start();
+    void Run();
     int inputMenu();
 
     void inputMember();

@@ -2,6 +2,6 @@
 
 int main() {
     MemberManager mm;
-    mm.Start();
+    mm.Run();
     return 0;
 }
