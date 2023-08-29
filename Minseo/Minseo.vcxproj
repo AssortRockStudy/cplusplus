@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="User.cpp" />
     <ClCompile Include="UserInfo_MAIN.cpp" />
   </ItemGroup>
   <ItemGroup>
