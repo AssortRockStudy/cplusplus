@@ -1,30 +1,38 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <Windows.h>
+#include <vector>
+#include <map>
+#include <string>
 
-struct User {
-	char name[20];
+using std::string;
+using std::map;
+using std::getline;
+using std::cin;
+using std::cout;
+using std::endl;
+
+struct UserData {
 	char sex;
+	char age;
 };
 
-struct Storage{
-	User u[200];
-	int uCnt;
-};
-
-void save(const User&);
+bool duplicateCheck(string name);
+void save(string name, const UserData&);
 void saveUser();
+void findUser();
 void printData();
 
-Storage s;
+map<string, UserData> storage;
 
 int main() {
 	bool flag = true;
 	while (flag) {
 		int input;
 		system("cls");
-		printf("1. È¸¿øµî·Ï\n");
-		printf("2. È¸¿ø ¸ğµÎ Ãâ·Â\n");
-		printf("3. Á¾·á\n");
+		printf("1. íšŒì›ë“±ë¡\n");
+		printf("2. íšŒì› ëª¨ë‘ ì¶œë ¥\n");
+		printf("3. íšŒì› ê²€ìƒ‰\n");
+		printf("4. ì¢…ë£Œ\n");
 		scanf_s("%d", &input);
 
 		switch (input)
@@ -36,6 +44,9 @@ int main() {
 			printData();
 			break;
 		case 3:
+			findUser();
+			break;
+		case 4:
 			flag = false;
 			break;
 		default:
@@ -45,42 +56,77 @@ int main() {
 	return 0;
 }
 
-void save(const User& q) {
-	if (s.uCnt < 200) {
-		s.u[s.uCnt++] = q;
-	}
+bool duplicateCheck(string name) {
+	return storage.find(name) != storage.end();
+}
+
+void save(string name, const UserData& data) { 
+	storage.insert({name, data}); 
 }
 
 
 void saveUser() {
 	while (true) {
 		system("cls");
-		printf("ÀÌ¸§ ÀÔ·Â\n");
-		User user = {};
-		scanf_s("%s", &user.name, sizeof(user.name));
-		printf("¼ºº° ÀÔ·Â(³²ÀÚ´Â 1, ¿©ÀÚ´Â 2)\n");
+		UserData user = {};
+		string name = "";
+		bool duplicated = true;
+		while (duplicated) {
+			printf("ì´ë¦„ ì…ë ¥\n");
+			cin >> name;
+			duplicated = duplicateCheck(name);
+			if (duplicated)
+				printf("ì¤‘ë³µëœ ì´ë¦„ì…ë‹ˆë‹¤.\n");
+		}
+		printf("ì„±ë³„ ì…ë ¥(ë‚¨ìëŠ” 1, ì—¬ìëŠ” 2)\n");
 		scanf_s("%hhd", &user.sex);
-		save(user);
+		printf("ë‚˜ì´ ì…ë ¥\n");
+		scanf_s("%hhd", &user.age);
+		save(name, user);
 		int flag = 0;
-		printf("Ãß°¡·Î ÀúÀåÇÏ½Ã°Ú½À´Ï±î?(y=1/n=0)\n");
+		printf("ì¶”ê°€ë¡œ ì €ì¥í•˜ì‹œê² ìŠµë‹ˆê¹Œ?(y = 1 / n = 0)\n");
 		scanf_s("%d", &flag);
 		if (flag == 0)
 			break;
 	}
 }
 
+void findUser()
+{
+	string name;
+	system("cls");
+	printf("ì´ë¦„ ì…ë ¥\n");
+	cin >> name;
+	if (duplicateCheck(name)) {
+		map<string, UserData>::iterator iter = storage.find(name);
+		cout << "ì´ë¦„ : " << iter->first << endl;
+		if (iter->second.sex == 1)
+			printf("ì„±ë³„ : ë‚¨ì\n");
+		else
+			printf("ì„±ë³„ : ì—¬ì\n");
+		printf("ë‚˜ì´ : %d\n", iter->second.age);
+	}
+	char continued;
+	printf("ë©”ì¸ í™”ë©´ìœ¼ë¡œ ì´ë™í•˜ë ¤ë©´ ì•„ë¬´ í‚¤ë‚˜ ì…ë ¥í•˜ì„¸ìš”\n");
+	scanf_s("%s", &continued, 1);
+}
+
 void printData() {
 	system("cls");
-	for (int i = 0; i < s.uCnt; ++i) {
-		printf("È¸¿ø %d\n", i + 1);
-		printf("ÀÌ¸§ : %s\n", s.u[i].name);
-		if (s.u[i].sex == 1)
-			printf("¼ºº° : ³²ÀÚ\n");
+	map<string, UserData>::iterator iter;
+	int cnt = 0;
+	for (iter = storage.begin(); iter != storage.end(); ++iter) {
+		printf("íšŒì› %d\n", cnt);
+		cout << "ì´ë¦„ : " << iter->first << endl;
+		if (iter->second.sex == 1)
+			printf("ì„±ë³„ : ë‚¨ì\n");
 		else
-			printf("¼ºº° : ¿©ÀÚ\n");
+			printf("ì„±ë³„ : ì—¬ì\n");
+		printf("ë‚˜ì´ : %d\n", iter->second.age);
+		++cnt;
 	}
-	char con;
-	printf("¸ŞÀÎ È­¸éÀ¸·Î ÀÌµ¿ÇÏ·Á¸é ¾Æ¹« Å°³ª ÀÔ·ÂÇÏ¼¼¿ä\n");
-	scanf_s("%s", &con, 1);
+	char continued;
+	printf("ë©”ì¸ í™”ë©´ìœ¼ë¡œ ì´ë™í•˜ë ¤ë©´ ì•„ë¬´ í‚¤ë‚˜ ì…ë ¥í•˜ì„¸ìš”\n");
+	scanf_s("%s", &continued, 1);
 }
 
