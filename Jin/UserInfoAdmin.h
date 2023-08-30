@@ -12,6 +12,7 @@ private:
 	bool Selecting();
 	void AddUserInfo();
 	void PrintUserInfo();
+	void AlwaysLast();
 };
 
 

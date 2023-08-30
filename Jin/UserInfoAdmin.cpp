@@ -25,25 +25,26 @@ void UserInfoAdmin::StartProgram()
 	}
 }
 
-bool UserInfoAdmin::Selecting( )
+bool UserInfoAdmin::Selecting()
 {
 	int selectNum = 0;
 	cout << " 수행할 기능의 숫자를 입력해주세요 : ";
-	cin.clear();
+	//cin.ignore(100, '\n');
+	//cin.clear();
 	cin >> selectNum;
 
 	switch (selectNum)
 	{
-		case 1:
-			AddUserInfo();
-			break;
-		case 2:
-			PrintUserInfo();
-			break;
-		case 3:
-			return true;
-		default :
-			cout << " 올바른 숫자를 입력하십시오. " << endl;
+	case 1:
+		AddUserInfo();
+		break;
+	case 2:
+		PrintUserInfo();
+		break;
+	case 3:
+		return true;
+	default:
+		cout << " 올바른 숫자를 입력하십시오. " << endl;
 	}
 	return false;
 }
@@ -53,7 +54,7 @@ void UserInfoAdmin::AddUserInfo()
 	system("cls");
 	//cin.clear();
 	UserInfo* user = new UserInfo();
-	 // 회원 이름, 성별, 나이 받아서 users에 저장하기 위해 하나 할당
+	// 회원 이름, 성별, 나이 받아서 users에 저장하기 위해 하나 할당
 	cout << " 등록할 회원 정보를 입력합니다. " << endl;
 	cout << " 회원 이름 : ";
 	cin >> user->name;
@@ -63,37 +64,23 @@ void UserInfoAdmin::AddUserInfo()
 	cin >> user->sex;
 
 	users.push_back(user);
-	
-	/*int reAdd = 0;
-	cout << " 0을 입력하면 초기화면으로 돌아갑니다. " << endl;
-	cout << " 추가 회원 정보 등록은 1을 입력하십시오. ";
-	cin >> reAdd;
 
-	if (1 == reAdd)
+	int reAdd = 0;
+	cout << " 추가 회원 정보 등록은 1을 입력하십시오. " << endl;
+	cout << " 1을 제외한 0이 아닌 숫자를 입력하면 초기화면으로 돌아갑니다. ";
+	cin >> reAdd; // 문자를 받아버리면 0으로 치부하고 while문에 들어옴.
+	cin.clear();
+	cin.ignore(100, '\n');
+	while (0 == reAdd || 1 == reAdd)
 	{
-		return AddUserInfo();
+		if (1 == reAdd) { return AddUserInfo(); }
+		cout << " 잘못된 입력입니다. 올바른 숫자를 입력하십시오.";
+		cin >> reAdd;
+		cin.clear();
+		cin.ignore(100, '\n');
 	}
-	else if (0 == reAdd)
-	{
-		return;
-	}
-	else
-	{
-		while (true)
-		{
-			"올바른 숫자키를 입력하십시오. 재입력 !!!! : ";
-			cin.clear();
-			cin >> reAdd;
-			if (1 == reAdd)
-			{
-				return AddUserInfo();
-			}
-			else if (0 == reAdd)
-			{
-				break;
-			}
-		}
-	}*/
+	system("cls");
+
 }
 
 void UserInfoAdmin::PrintUserInfo()
@@ -106,12 +93,27 @@ void UserInfoAdmin::PrintUserInfo()
 		cout << EQUAL_PRINT << endl;
 		cout << " 회원 이름 : " << users[i]->name << endl;
 		cout << " 회원 나이 : " << users[i]->age << endl;
-		if(1 == users[i]->sex)
+		if (1 == users[i]->sex)
 			cout << " 회원 성별 : 남성" << endl;
 		else
 			cout << " 회원 성별 : 여성" << endl;
 	}
-	cout << "아무 키를 입력하면 초기화면으로 돌아갑니다. " << endl;
-	bool reAdd = true;
-	cin >> reAdd;
+	AlwaysLast();
+}
+
+void UserInfoAdmin::AlwaysLast()
+{
+	cout << " 0이 아닌 숫자를 입력하면 초기화면으로 돌아갑니다. " << endl << " 0이 아닌 숫자를 입력하세요.";
+	int next;
+	cin >> next; // 문자를 받아버리면 0으로 치부하고 while문에 들어옴.
+	cin.clear();
+	cin.ignore(100, '\n');
+	while (0 == next)
+	{
+		cout << " 잘못된 입력입니다. 0이 아닌 숫자를 입력하세요.";
+		cin >> next;
+		cin.clear();
+		cin.ignore(100, '\n');
+	}
+	system("cls");
 }
