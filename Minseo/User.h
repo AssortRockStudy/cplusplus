@@ -1,15 +1,15 @@
-#pragma once
+ï»¿#pragma once
 #include <string>
 #include <map>
 
 class User
 {
-public: // ¸â¹ö º¯¼ö
+public: // ë©¤ë²„ ë³€ìˆ˜
 	std::string	m_Name;
 	std::string	m_Group;
 	int		m_Sex;
 	int		m_Age;
-public: // »ı¼ºÀÚ, ¼Ò¸êÀÚ
+public: // ìƒì„±ì, ì†Œë©¸ì
 	User();
 	//User(string	Name, string Group, int	Sex, int Age);
 	~User();

@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <conio.h>
 #include <Windows.h>
 #include <map>
@@ -38,43 +38,43 @@ void initUser()
 	while (true)
 	{
 		system("cls");
-		cout << "+++++ È¸¿ø µî·Ï" << endl;	
-		cout << "Áö±İ±îÁö" << userMap.size() << "¸íÀÇ È¸¿øÀ» µî·ÏÇß½À´Ï´Ù." << endl;
+		cout << "+++++ íšŒì› ë“±ë¡" << endl;	
+		cout << "ì§€ê¸ˆê¹Œì§€" << userMap.size() << "ëª…ì˜ íšŒì›ì„ ë“±ë¡í–ˆìŠµë‹ˆë‹¤." << endl;
 
 		User newUser;
 
 		map<string, User>::iterator isValidName;
-		do // ÀÌ¸§ ÀÔ·Â
+		do // ì´ë¦„ ì…ë ¥
 		{
-			cout << "ÀÌ¸§ ÀÔ·Â(¿µ¹®): ";
+			cout << "ì´ë¦„ ì…ë ¥(ì˜ë¬¸): ";
 			cin >> newUser.m_Name;
 			isValidName = userMap.find(newUser.m_Name);
 			if (isValidName != userMap.end())
-				cout << "Áßº¹µÈ ÀÌ¸§ÀÔ´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä." << endl;
+				cout << "ì¤‘ë³µëœ ì´ë¦„ì…ë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”." << endl;
 		} while (isValidName != userMap.end());
 
-		do // ¼ºº° ÀÔ·Â
+		do // ì„±ë³„ ì…ë ¥
 		{
-			cout << "¼ºº° ÀÔ·Â(³²¼º-> 1, ¿©¼º-> 2): ";
+			cout << "ì„±ë³„ ì…ë ¥(ë‚¨ì„±-> 1, ì—¬ì„±-> 2): ";
 			cin >> newUser.m_Sex;
 			if (newUser.m_Sex != MALE && newUser.m_Sex != FEMALE)
-				cout << "Àß¸øµÈ °ªÀÔ´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä." << endl;
+				cout << "ì˜ëª»ëœ ê°’ì…ë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”." << endl;
 		} while (newUser.m_Sex != MALE && newUser.m_Sex != FEMALE);
 
-		// ³ªÀÌ ÀÔ·Â
-		cout << "³ªÀÌ ÀÔ·Â: ";
+		// ë‚˜ì´ ì…ë ¥
+		cout << "ë‚˜ì´ ì…ë ¥: ";
 		cin >> newUser.m_Age;
 
-		// µ¥ÀÌÅÍ »ğÀÔ
+		// ë°ì´í„° ì‚½ì…
 		userMap.insert(make_pair(newUser.m_Name, newUser));
 		cout << endl << endl
-			<< "È¸¿ø µî·ÏÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù." << endl;
+			<< "íšŒì› ë“±ë¡ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤." << endl;
 
 
 		int answer = 0;
-		do // Àç½ÇÇà Ã¼Å©
+		do // ì¬ì‹¤í–‰ ì²´í¬
 		{
-			cout << "È¸¿ø µî·ÏÀ» ÇÑ ¹ø ´õ ÁøÇàÇÒ±î¿ä? (yes-> 1, no-> 2): ";
+			cout << "íšŒì› ë“±ë¡ì„ í•œ ë²ˆ ë” ì§„í–‰í• ê¹Œìš”? (yes-> 1, no-> 2): ";
 			cin >> answer;
 
 		} while (answer != 1 && answer != 2);
@@ -90,14 +90,14 @@ void outputSort_Name(int isReverse)
 		for (auto iter = userMap.begin(); iter != userMap.end(); ++iter)
 		{
 			User data = iter->second;
-			cout << "----- " << data.m_Name << "´Ô" << endl;
-			cout << "³ªÀÌ: " << data.m_Age << endl;
-			cout << "¼ºº°: ";
+			cout << "----- " << data.m_Name << "ë‹˜" << endl;
+			cout << "ë‚˜ì´: " << data.m_Age << endl;
+			cout << "ì„±ë³„: ";
 			if (data.m_Sex == MALE)
-				cout << "³²¼º" << endl;
+				cout << "ë‚¨ì„±" << endl;
 			else
-				cout << "¿©¼º" << endl;
-			cout << "±×·ì: " << data.m_Group << endl;
+				cout << "ì—¬ì„±" << endl;
+			cout << "ê·¸ë£¹: " << data.m_Group << endl;
 		}
 	}
 	else
@@ -105,14 +105,14 @@ void outputSort_Name(int isReverse)
 		for (auto riter = userMap.rbegin(); riter != userMap.rend(); ++riter)
 		{
 			User data = riter->second;
-			cout << "----- " << data.m_Name << "´Ô" << endl;
-			cout << "³ªÀÌ: " << data.m_Age << endl;
-			cout << "¼ºº°: ";
+			cout << "----- " << data.m_Name << "ë‹˜" << endl;
+			cout << "ë‚˜ì´: " << data.m_Age << endl;
+			cout << "ì„±ë³„: ";
 			if (data.m_Sex == MALE)
-				cout << "³²¼º" << endl;
+				cout << "ë‚¨ì„±" << endl;
 			else
-				cout << "¿©¼º" << endl;
-			cout << "±×·ì: " << data.m_Group << endl;
+				cout << "ì—¬ì„±" << endl;
+			cout << "ê·¸ë£¹: " << data.m_Group << endl;
 		}
 	}
 }
@@ -122,26 +122,26 @@ void outputSort_Sex(int Sex)
 	{
 		User data = iter->second;
 		if (Sex != data.m_Sex) continue;
-		cout << "----- " << data.m_Name << "´Ô" << endl;
-		cout << "³ªÀÌ: " << data.m_Age << endl;
-		cout << "¼ºº°: ";
+		cout << "----- " << data.m_Name << "ë‹˜" << endl;
+		cout << "ë‚˜ì´: " << data.m_Age << endl;
+		cout << "ì„±ë³„: ";
 		if (data.m_Sex == MALE)
-			cout << "³²¼º" << endl;
+			cout << "ë‚¨ì„±" << endl;
 		else
-			cout << "¿©¼º" << endl;
-		cout << "±×·ì: " << data.m_Group << endl;
+			cout << "ì—¬ì„±" << endl;
+		cout << "ê·¸ë£¹: " << data.m_Group << endl;
 	}
 }
 
-void outputSort() // Á¤·Ä ÈÄ Ãâ·Â
+void outputSort() // ì •ë ¬ í›„ ì¶œë ¥
 {
 	system("cls");
-	cout << "1. ÀÌ¸§ ¼ø Ãâ·Â" << endl;
-	cout << "2. ÀÌ¸§ ¿ª¼ø Ãâ·Â" << endl;
-	cout << "3. ¸ğµç ³²¼º Ãâ·Â" << endl;
-	cout << "4. ¸ğµç ¿©¼º Ãâ·Â" << endl;
-	cout << "5. ³ªÀÌ´ë º° Ãâ·Â" << endl;
-	cout << "¿øÇÏ´Â ±â´ÉÀ» ÀÔ·ÂÇÏ¼¼¿ä: ";
+	cout << "1. ì´ë¦„ ìˆœ ì¶œë ¥" << endl;
+	cout << "2. ì´ë¦„ ì—­ìˆœ ì¶œë ¥" << endl;
+	cout << "3. ëª¨ë“  ë‚¨ì„± ì¶œë ¥" << endl;
+	cout << "4. ëª¨ë“  ì—¬ì„± ì¶œë ¥" << endl;
+	cout << "5. ë‚˜ì´ëŒ€ ë³„ ì¶œë ¥" << endl;
+	cout << "ì›í•˜ëŠ” ê¸°ëŠ¥ì„ ì…ë ¥í•˜ì„¸ìš”: ";
 	
 	int answer = 0;
 	cin >> answer;
@@ -162,33 +162,33 @@ void outputSort() // Á¤·Ä ÈÄ Ãâ·Â
 	return;
 }
 
-void outputSearch() // Å½»ö ÈÄ À¯Àú Ãâ·Â
+void outputSearch() // íƒìƒ‰ í›„ ìœ ì € ì¶œë ¥
 {
 	system("cls");
 
-	// À¯Àú Å½»ö
+	// ìœ ì € íƒìƒ‰
 	string nameBuffer = "";
-	cout << "Ã£°íÀÚ ÇÏ´Â ÀÌ¸§ ÀÔ·Â: ";
+	cout << "ì°¾ê³ ì í•˜ëŠ” ì´ë¦„ ì…ë ¥: ";
 	cin >> nameBuffer;
 
 	map<string, User>::iterator dataIter = userMap.find(nameBuffer);
 
 	if (dataIter == userMap.end())
 	{
-		cout << "ÇØ´ç ÀÌ¸§ÀÇ È¸¿øÀº ÀúÀåµÇ¾îÀÖÁö ¾Ê½À´Ï´Ù." << endl;
+		cout << "í•´ë‹¹ ì´ë¦„ì˜ íšŒì›ì€ ì €ì¥ë˜ì–´ìˆì§€ ì•ŠìŠµë‹ˆë‹¤." << endl;
 		return;
 	}
 
-	// À¯Àú Ãâ·Â
+	// ìœ ì € ì¶œë ¥
 	User data = dataIter->second;
-	cout << "----- " << data.m_Name << "´Ô" << endl;
-	cout << "³ªÀÌ: " << data.m_Age << endl;
-	cout << "¼ºº°: ";
+	cout << "----- " << data.m_Name << "ë‹˜" << endl;
+	cout << "ë‚˜ì´: " << data.m_Age << endl;
+	cout << "ì„±ë³„: ";
 	if (data.m_Sex == MALE)
-		cout << "³²¼º" << endl;
+		cout << "ë‚¨ì„±" << endl;
 	else
-		cout << "¿©¼º" << endl;
-	cout << "±×·ì: " << data.m_Group << endl;
+		cout << "ì—¬ì„±" << endl;
+	cout << "ê·¸ë£¹: " << data.m_Group << endl;
 
 	return;
 }
@@ -196,17 +196,17 @@ void outputSearch() // Å½»ö ÈÄ À¯Àú Ãâ·Â
 void printUser()
 {
 	system("cls");
-	cout << "+++++ È¸¿ø Ãâ·Â" << endl;
-	cout << "ÇöÀç " << userMap.size() << "¸íÀÇ È¸¿øÀÌ ÀúÀåµÇ¾î ÀÖ½À´Ï´Ù.";
-	cout << "1. À¯Àú °Ë»ö ÈÄ Ãâ·Â" << endl;
-	cout << "2. À¯Àú ÀüÃ¼ Ãâ·Â" << endl; 
-	cout << "3. µ¹¾Æ°¡±â" << endl << endl << endl;
-	cout << "¿øÇÏ´Â ±â´ÉÀ» ÀÔ·ÂÇÏ¼¼¿ä: ";
+	cout << "+++++ íšŒì› ì¶œë ¥" << endl;
+	cout << "í˜„ì¬ " << userMap.size() << "ëª…ì˜ íšŒì›ì´ ì €ì¥ë˜ì–´ ìˆìŠµë‹ˆë‹¤.";
+	cout << "1. ìœ ì € ê²€ìƒ‰ í›„ ì¶œë ¥" << endl;
+	cout << "2. ìœ ì € ì „ì²´ ì¶œë ¥" << endl; 
+	cout << "3. ëŒì•„ê°€ê¸°" << endl << endl << endl;
+	cout << "ì›í•˜ëŠ” ê¸°ëŠ¥ì„ ì…ë ¥í•˜ì„¸ìš”: ";
 
 	int answer = 0;
 	cin >> answer;
 	
-	switch (answer) // ¿¬¼ÓµÈ ±¸Á¶ÀÇ case¸é jump tableÀ» »ç¿ë
+	switch (answer) // ì—°ì†ëœ êµ¬ì¡°ì˜ caseë©´ jump tableì„ ì‚¬ìš©
 	{
 	case OUTPUT::SEARCH:
 		outputSearch();
@@ -220,7 +220,7 @@ void printUser()
 		break;
 	}
 	
-	cout << "È¸¿øÀ» Ãâ·ÂÇß½À´Ï´Ù. ¾Æ¹« Å°¸¦ ´©¸£¸é ¸ŞÀÎ È­¸éÀ¸·Î º¹±ÍÇÕ´Ï´Ù..." << endl;
+	cout << "íšŒì›ì„ ì¶œë ¥í–ˆìŠµë‹ˆë‹¤. ì•„ë¬´ í‚¤ë¥¼ ëˆ„ë¥´ë©´ ë©”ì¸ í™”ë©´ìœ¼ë¡œ ë³µê·€í•©ë‹ˆë‹¤..." << endl;
 	_getwch();
 	return;
 }
@@ -229,16 +229,16 @@ int RunUserInfoSystem()
 {
 	system("cls");
 	int answer = 0;
-	cout << "+++++È¸¿øÁ¤º¸ ÀÔÃâ·Â ÇÁ·Î±×·¥+++++" << endl;
-	cout << "---ÇöÀç ÀÔ·ÂµÈ À¯ÀúÀÇ ¼ö: " << userMap.size() << endl;
-	cout << "1. È¸¿ø µî·Ï" << endl;
-	cout << "2. È¸¿ø Ãâ·Â" << endl;
-	cout << "3. È¸¿ø Á¤º¸ ¼öÁ¤" << endl;
-	cout << "4. ³¡³»±â" << endl << endl << endl;
-	cout << "¿øÇÏ´Â ±â´ÉÀ» ÀÔ·ÂÇÏ¼¼¿ä: ";
+	cout << "+++++íšŒì›ì •ë³´ ì…ì¶œë ¥ í”„ë¡œê·¸ë¨+++++" << endl;
+	cout << "---í˜„ì¬ ì…ë ¥ëœ ìœ ì €ì˜ ìˆ˜: " << userMap.size() << endl;
+	cout << "1. íšŒì› ë“±ë¡" << endl;
+	cout << "2. íšŒì› ì¶œë ¥" << endl;
+	cout << "3. íšŒì› ì •ë³´ ìˆ˜ì •" << endl;
+	cout << "4. ëë‚´ê¸°" << endl << endl << endl;
+	cout << "ì›í•˜ëŠ” ê¸°ëŠ¥ì„ ì…ë ¥í•˜ì„¸ìš”: ";
 
 	cin >> answer;
-	switch (answer) // ¿¬¼ÓµÈ ±¸Á¶ÀÇ case¸é jump tableÀ» »ç¿ë
+	switch (answer) // ì—°ì†ëœ êµ¬ì¡°ì˜ caseë©´ jump tableì„ ì‚¬ìš©
 	{
 	case INIT:
 		initUser();
@@ -247,10 +247,10 @@ int RunUserInfoSystem()
 		printUser();
 		break;
 	case EDIT:
-		// È¸¿øÁ¤º¸¼öÁ¤ ÇÔ¼ö
+		// íšŒì›ì •ë³´ìˆ˜ì • í•¨ìˆ˜
 		break;
 	case RETURN:
-		cout << "ÇÁ·Î±×·¥À» Á¾·áÇÕ´Ï´Ù." << endl;
+		cout << "í”„ë¡œê·¸ë¨ì„ ì¢…ë£Œí•©ë‹ˆë‹¤." << endl;
 		return 0;
 		break;
 	default:

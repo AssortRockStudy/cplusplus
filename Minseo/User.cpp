@@ -1,8 +1,8 @@
-#include "User.h"
+ï»¿#include "User.h"
 
 User::User()
 	:m_Name("")
-	, m_Group("¹ÌÁ¤")
+	, m_Group("ë¯¸ì •")
 	,m_Age(0)
 	,m_Sex(0)
 {
