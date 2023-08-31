@@ -2,6 +2,7 @@
 #include <iostream>
 #include <list>
 #include <string>
+#include <vector>
 
 using std::cin;
 using std::cout;
@@ -17,31 +18,36 @@ using std::string;
 // 메인부터 MemberManager 객체 생성 후, start할거임
 // 리스트(회원), 회원 수,
 class MemberManager {
-  public:
+   public:
     enum Sex { NO, MAN, WOMAN };
-    enum Menu { NONE, INPUT, SEARCH_NAME, PRINTALL, QUIT, END };
+    enum Menu { NONE, INPUT, SEARCH_NAME, PRINTALL, MODIFY, QUIT, END };
 
-  private:
+   private:
     // 멤버는 이름, 성별, 나이를 입력받음
     class Member {
         friend class MemberManager;
+        enum Attribute { NONE, ALL, NAME, AGE, SEX };
 
-      private:
-        string   name;
+#define INPUT_NAME 0x01
+#define INPUT_AGE 0x02
+#define INPUT_SEX 0x04
+#define INPUT_ALL 0x07
+
+       private:
+        string name;
         uint32_t sex;
         uint32_t age;
 
-      public:
+       public:
         Member() : name(""), sex(0), age(0){};
         Member(string _name, uint32_t _sex, uint32_t _age)
             : name(_name), sex(_sex), age(_age){};
         ~Member(){};
 
-      public:
+       public:
         bool isValid();
 
         friend std::ostream& operator<<(std::ostream& os, const Member& mem) {
-
             os << "이름: " << mem.name << endl;
             if (mem.sex == Sex::MAN) {
                 os << "성별: 남자" << endl;
@@ -56,21 +62,23 @@ class MemberManager {
     };
 
     list<Member> members;
-    int          curCount;
+    int curCount;
 
-  public:
+   public:
     MemberManager() : curCount(0), members(){};
     ~MemberManager() { members.clear(); };
 
-  public:
+   public:
     void Run();
-    int  inputMenu();
+    int inputMenu();
 
-  private:
+   private:
     void inputMember();
+    void modifyMemberByAttribute(
+        std::list<MemberManager::Member>::iterator& _it, int _mask);
     void searchByName();
-    list<MemberManager::Member>::iterator
-         searchMemberByName(const string& name);
+    list<MemberManager::Member>::iterator searchMemberByName(
+        const string& name);
     void modifyMember();
 
     void printAllMember();

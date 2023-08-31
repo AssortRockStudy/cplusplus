@@ -1,6 +1,7 @@
 #include "memberManager.h"
 
 #include <Windows.h>
+
 #include <algorithm>
 
 void MemberManager::Run() {
@@ -9,19 +10,22 @@ void MemberManager::Run() {
     while (!quit) {
         int select = inputMenu();
         switch (select) {
-        case Menu::INPUT:
-            inputMember();
-            break;
-        case Menu::SEARCH_NAME:
-            searchByName();
-            break;
-        case Menu::PRINTALL:
-            printAllMember();
-            break;
-        case Menu::QUIT:
-            printByeMsg();
-            quit = true;
-            break;
+            case Menu::INPUT:
+                inputMember();
+                break;
+            case Menu::SEARCH_NAME:
+                searchByName();
+                break;
+            case Menu::PRINTALL:
+                printAllMember();
+                break;
+            case Menu::MODIFY:
+                modifyMember();
+                break;
+            case Menu::QUIT:
+                printByeMsg();
+                quit = true;
+                break;
         }
     }
 };
@@ -33,6 +37,7 @@ int MemberManager::inputMenu() {
         cout << Menu::INPUT << ". 회원 정보 추가" << endl;
         cout << Menu::SEARCH_NAME << ". 회원 이름으로 검색" << endl;
         cout << Menu::PRINTALL << ". 회원 모두 출력" << endl;
+        cout << Menu::MODIFY << ". 회원 정보 수정" << endl;
         cout << Menu::QUIT << ". 끝내기" << endl;
 
         cout << endl << "실행할 번호를 입력해주세요: ";
@@ -47,18 +52,17 @@ int MemberManager::inputMenu() {
 
     return input;
 };
-list<MemberManager::Member>::iterator
-MemberManager::searchMemberByName(const string& name) {
-
+list<MemberManager::Member>::iterator MemberManager::searchMemberByName(
+    const string& name) {
     auto first = members.begin();
     auto last = members.end();
     while (first != last) {
-        if (first->name == name)
-            break;
+        if (first->name == name) break;
         ++first;
     }
     return first;
 }
+
 void MemberManager::searchByName() {
     // 이름으로 탐색
     // 찾으면 Member 리턴, 못찾으면 nullptr 리턴
@@ -73,6 +77,77 @@ void MemberManager::searchByName() {
     printMember(member);
 
     printGoMainMenu();
+}
+
+void MemberManager::modifyMember() {
+    string name;
+    system("cls");
+
+    cout << "변경할 회원의 이름을 입력해주세요: ";
+    cin >> name;
+
+    auto member = searchMemberByName(name);
+
+    if (member == members.end()) {
+        cout << "해당 이름의 회원이 없습니다." << endl;
+
+    } else {
+        bool loop = true;
+        int mask = 0;
+        while (loop) {
+            loop = false;
+
+            int idx = 0;
+            cout << MemberManager::Member::Attribute::ALL << ". 모든 정보"
+                 << endl;
+            cout << MemberManager::Member::Attribute::NAME << ". 이름" << endl;
+            cout << MemberManager::Member::Attribute::AGE << ". 나이" << endl;
+            cout << MemberManager::Member::Attribute::SEX << ". 성별" << endl;
+
+            cout << "수정할 정보를 선택하세요: ";
+            cin >> idx;
+            cin.clear();
+            cin.ignore(256, '\n');
+
+            switch (idx) {
+                case MemberManager::Member::Attribute::ALL:
+                    mask |= INPUT_ALL;
+                    break;
+                case MemberManager::Member::Attribute::NAME:
+                    mask |= INPUT_NAME;
+                    break;
+                case MemberManager::Member::Attribute::AGE:
+                    mask |= INPUT_AGE;
+                    break;
+                case MemberManager::Member::Attribute::SEX:
+                    mask |= INPUT_SEX;
+                    break;
+                default:
+                    system("cls");
+                    cout << "잘못된 입력입니다. 다시 입력해주세요" << endl;
+                    loop = true;
+                    break;
+            }
+        }
+        modifyMemberByAttribute(member, mask);
+    }
+    printGoMainMenu();
+}
+
+void MemberManager::modifyMemberByAttribute(
+    std::list<MemberManager::Member>::iterator& _it, int _mask) {
+    if (_mask & INPUT_NAME) {
+        cout << "변경할 이름을 입력해주세요: ";
+        cin >> _it->name;
+    }
+    if (_mask & INPUT_SEX) {
+        cout << "변경할 성별을 입력해주세요(남성: 1, 여성: 2): ";
+        cin >> _it->sex;
+    }
+    if (_mask & INPUT_AGE) {
+        cout << "변경할 나이를 입력해주세요: ";
+        cin >> _it->age;
+    }
 }
 
 void MemberManager::inputMember() {
