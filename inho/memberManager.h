@@ -22,7 +22,7 @@ class MemberManager {
     enum Sex { NO, MAN, WOMAN };
     enum Menu { NONE, INPUT, SEARCH_NAME, PRINTALL, MODIFY, QUIT, END };
 
-   private:
+   public:
     // 멤버는 이름, 성별, 나이를 입력받음
     class Member {
         friend class MemberManager;
@@ -74,15 +74,15 @@ class MemberManager {
 
    private:
     void inputMember();
-    void modifyMemberByAttribute(
-        std::list<MemberManager::Member>::iterator& _it, int _mask);
+    void modifyMemberByAttribute(std::list<Member>::iterator& _it, int _mask);
     void searchByName();
-    list<MemberManager::Member>::iterator searchMemberByName(
-        const string& name);
+    list<Member>::iterator searchMemberByName(const string& name);
     void modifyMember();
 
+    bool checkDuplicate(const Member& _chk);
+
     void printAllMember();
-    void printMember(list<MemberManager::Member>::iterator& it);
+    void printMember(list<Member>::iterator& it);
     void printWelcomMsg();
     void printByeMsg();
 

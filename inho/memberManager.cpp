@@ -98,11 +98,11 @@ void MemberManager::modifyMember() {
             loop = false;
 
             int idx = 0;
-            cout << MemberManager::Member::Attribute::ALL << ". 모든 정보"
+            cout << Member::Attribute::ALL << ". 모든 정보"
                  << endl;
-            cout << MemberManager::Member::Attribute::NAME << ". 이름" << endl;
-            cout << MemberManager::Member::Attribute::AGE << ". 나이" << endl;
-            cout << MemberManager::Member::Attribute::SEX << ". 성별" << endl;
+            cout << Member::Attribute::NAME << ". 이름" << endl;
+            cout << Member::Attribute::AGE << ". 나이" << endl;
+            cout << Member::Attribute::SEX << ". 성별" << endl;
 
             cout << "수정할 정보를 선택하세요: ";
             cin >> idx;
@@ -110,16 +110,16 @@ void MemberManager::modifyMember() {
             cin.ignore(256, '\n');
 
             switch (idx) {
-                case MemberManager::Member::Attribute::ALL:
+                case Member::Attribute::ALL:
                     mask |= INPUT_ALL;
                     break;
-                case MemberManager::Member::Attribute::NAME:
+                case Member::Attribute::NAME:
                     mask |= INPUT_NAME;
                     break;
-                case MemberManager::Member::Attribute::AGE:
+                case Member::Attribute::AGE:
                     mask |= INPUT_AGE;
                     break;
-                case MemberManager::Member::Attribute::SEX:
+                case Member::Attribute::SEX:
                     mask |= INPUT_SEX;
                     break;
                 default:
@@ -135,7 +135,7 @@ void MemberManager::modifyMember() {
 }
 
 void MemberManager::modifyMemberByAttribute(
-    std::list<MemberManager::Member>::iterator& _it, int _mask) {
+    std::list<Member>::iterator& _it, int _mask) {
     if (_mask & INPUT_NAME) {
         cout << "변경할 이름을 입력해주세요: ";
         cin >> _it->name;
@@ -202,7 +202,7 @@ void MemberManager::printAllMember() {
     printGoMainMenu();
 }
 
-void MemberManager::printMember(list<MemberManager::Member>::iterator& it) {
+void MemberManager::printMember(list<Member>::iterator& it) {
     if (it == members.end()) {
         cout << "존재하지 않는 회원입니다." << endl;
     } else {
