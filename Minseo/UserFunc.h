@@ -3,7 +3,7 @@
 
 enum USER_FUNC
 {
-	INIT = 1,
+	REGISTRATION = 1,
 	PRINT,
 	EDIT,
 	CLEAR,

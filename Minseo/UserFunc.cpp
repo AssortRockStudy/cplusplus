@@ -11,7 +11,7 @@ using namespace std;
 
 map<string, User> userMap;
 
-void initUser()
+void registrationUser()
 {
 	while (true)
 	{
@@ -308,8 +308,8 @@ int RunUserInfoSystem()
 	cin >> answer;
 	switch (answer) // 연속된 구조의 case면 jump table을 사용
 	{
-	case INIT:
-		initUser();
+	case REGISTRATION:
+		registrationUser();
 		break;
 	case PRINT:
 		printUser();
