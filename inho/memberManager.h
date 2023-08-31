@@ -59,6 +59,16 @@ class MemberManager {
             os << "³ªÀÌ: " << mem.age << endl;
             return os;
         }
+
+        bool operator==(const Member& _oth) {
+            if (this->name != _oth.name) return false;
+            if (this->age != _oth.age) return false;
+            if (this->sex != _oth.sex) return false;
+
+            return true;
+        }
+
+        bool operator!=(const Member& _oth) { return !(*this == _oth); }
     };
 
     list<Member> members;
@@ -70,16 +80,16 @@ class MemberManager {
 
    public:
     void Run();
-    int inputMenu();
 
    private:
+    int inputMenu();
     void inputMember();
-    void modifyMemberByAttribute(std::list<Member>::iterator& _it, int _mask);
     void searchByName();
     list<Member>::iterator searchMemberByName(const string& name);
     void modifyMember();
+    void modifyMemberByAttribute(std::list<Member>::iterator& _it, int _mask);
 
-    bool checkDuplicate(const Member& _chk);
+    bool isDuplicate(const Member& _chk);
 
     void printAllMember();
     void printMember(list<Member>::iterator& it);

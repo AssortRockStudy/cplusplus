@@ -98,8 +98,7 @@ void MemberManager::modifyMember() {
             loop = false;
 
             int idx = 0;
-            cout << Member::Attribute::ALL << ". 모든 정보"
-                 << endl;
+            cout << Member::Attribute::ALL << ". 모든 정보" << endl;
             cout << Member::Attribute::NAME << ". 이름" << endl;
             cout << Member::Attribute::AGE << ". 나이" << endl;
             cout << Member::Attribute::SEX << ". 성별" << endl;
@@ -134,8 +133,8 @@ void MemberManager::modifyMember() {
     printGoMainMenu();
 }
 
-void MemberManager::modifyMemberByAttribute(
-    std::list<Member>::iterator& _it, int _mask) {
+void MemberManager::modifyMemberByAttribute(std::list<Member>::iterator& _it,
+                                            int _mask) {
     if (_mask & INPUT_NAME) {
         cout << "변경할 이름을 입력해주세요: ";
         cin >> _it->name;
@@ -148,6 +147,13 @@ void MemberManager::modifyMemberByAttribute(
         cout << "변경할 나이를 입력해주세요: ";
         cin >> _it->age;
     }
+}
+
+bool MemberManager::isDuplicate(const Member& _chk) {
+    for (auto it = members.begin(); it != members.end(); ++it) {
+        if (*it == _chk) return true;
+    }
+    return false;
 }
 
 void MemberManager::inputMember() {
@@ -166,9 +172,21 @@ void MemberManager::inputMember() {
             cin >> newMember.age;
 
             if (newMember.isValid()) {
-                break;
+                if (!isDuplicate(newMember)) {
+                    break;
+                } else {
+                    cout << "중복되는 회원입니다! " << endl << endl;
+                }
             } else {
                 cout << "유효하지 않은 정보입니다. " << endl << endl;
+            }
+            int quit = 0;
+            cout << "그만 입력하시겠습니까(yes: 1, no: 0): ";
+            cin >> quit;
+            cin.clear();
+            cin.ignore(256, '\n');
+            if (quit) {
+                break;
             }
         }
 
@@ -178,6 +196,8 @@ void MemberManager::inputMember() {
         cout << "추가로 회원을 입력하시겠습니까(yes: 1, no: 0): ";
 
         cin >> more;
+        cin.clear();
+        cin.ignore(256, '\n');
 
         if (!more) {
             break;
