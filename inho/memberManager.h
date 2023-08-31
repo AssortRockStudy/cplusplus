@@ -68,9 +68,12 @@ class MemberManager {
 
   private:
     void                                  inputMember();
-    list<MemberManager::Member>::iterator searchByName();
+    void                                  searchByName();
+    list<MemberManager::Member>::iterator searchMemberByName();
+    void                                  modifyMember();
 
     void printAllMember();
+    void printMember(list<MemberManager::Member>::iterator& it);
     void printWelcomMsg();
     void printByeMsg();
 

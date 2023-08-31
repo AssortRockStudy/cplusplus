@@ -47,16 +47,11 @@ int MemberManager::inputMenu() {
 
     return input;
 };
-
-list<MemberManager::Member>::iterator MemberManager::searchByName() {
-    // 이름으로 탐색
-    // 찾으면 Member 리턴, 못찾으면 nullptr 리턴
-    // vector 순회? map과 vector 둘 다 갖고있기?'
-
-    system("cls");
+list<MemberManager::Member>::iterator MemberManager::searchMemberByName() {
     string _name;
     cout << "검색할 이름을 입력해주세요: ";
     cin >> _name;
+
     auto first = members.begin();
     auto last = members.end();
     while (first != last) {
@@ -64,15 +59,18 @@ list<MemberManager::Member>::iterator MemberManager::searchByName() {
             break;
         ++first;
     }
-    if (first == last) {
-        cout << "존재하지 않는 회원입니다." << endl;
-        printGoMainMenu();
-        return first;
-    }
-    cout << *first;
+    return first;
+}
+void MemberManager::searchByName() {
+    // 이름으로 탐색
+    // 찾으면 Member 리턴, 못찾으면 nullptr 리턴
+    // vector 순회? map과 vector 둘 다 갖고있기?'
+
+    system("cls");
+    auto member = searchMemberByName();
+    printMember(member);
 
     printGoMainMenu();
-    return first;
 }
 void MemberManager::inputMember() {
     cout << "회원 정보 입력 기능입니다. " << endl << endl;
@@ -125,6 +123,14 @@ void MemberManager::printAllMember() {
     cout << "총 " << curCount << "명 입니다." << endl;
 
     printGoMainMenu();
+}
+
+void MemberManager::printMember(list<MemberManager::Member>::iterator& it) {
+    if (it == members.end()) {
+        cout << "존재하지 않는 회원입니다." << endl;
+    } else {
+        cout << *it;
+    }
 }
 
 void MemberManager::printWelcomMsg() {
