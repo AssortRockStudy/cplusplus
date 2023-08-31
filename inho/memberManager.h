@@ -19,7 +19,7 @@ using std::string;
 class MemberManager {
   public:
     enum Sex { NO, MAN, WOMAN };
-    enum Menu { NONE, INPUT, SERACH_NAME, PRINTALL, QUIT, END };
+    enum Menu { NONE, INPUT, SEARCH_NAME, PRINTALL, QUIT, END };
 
   private:
     // 멤버는 이름, 성별, 나이를 입력받음
@@ -67,10 +67,11 @@ class MemberManager {
     int  inputMenu();
 
   private:
-    void                                  inputMember();
-    void                                  searchByName();
-    list<MemberManager::Member>::iterator searchMemberByName();
-    void                                  modifyMember();
+    void inputMember();
+    void searchByName();
+    list<MemberManager::Member>::iterator
+         searchMemberByName(const string& name);
+    void modifyMember();
 
     void printAllMember();
     void printMember(list<MemberManager::Member>::iterator& it);

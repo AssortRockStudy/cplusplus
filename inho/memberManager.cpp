@@ -12,7 +12,7 @@ void MemberManager::Run() {
         case Menu::INPUT:
             inputMember();
             break;
-        case Menu::SERACH_NAME:
+        case Menu::SEARCH_NAME:
             searchByName();
             break;
         case Menu::PRINTALL:
@@ -31,7 +31,7 @@ int MemberManager::inputMenu() {
     int input;
     while (true) {
         cout << Menu::INPUT << ". 회원 정보 추가" << endl;
-        cout << Menu::SERACH_NAME << ". 회원 이름으로 검색" << endl;
+        cout << Menu::SEARCH_NAME << ". 회원 이름으로 검색" << endl;
         cout << Menu::PRINTALL << ". 회원 모두 출력" << endl;
         cout << Menu::QUIT << ". 끝내기" << endl;
 
@@ -47,15 +47,13 @@ int MemberManager::inputMenu() {
 
     return input;
 };
-list<MemberManager::Member>::iterator MemberManager::searchMemberByName() {
-    string _name;
-    cout << "검색할 이름을 입력해주세요: ";
-    cin >> _name;
+list<MemberManager::Member>::iterator
+MemberManager::searchMemberByName(const string& name) {
 
     auto first = members.begin();
     auto last = members.end();
     while (first != last) {
-        if (first->name == _name)
+        if (first->name == name)
             break;
         ++first;
     }
@@ -67,11 +65,16 @@ void MemberManager::searchByName() {
     // vector 순회? map과 vector 둘 다 갖고있기?'
 
     system("cls");
-    auto member = searchMemberByName();
+    string name;
+    cout << "검색할 이름을 입력해주세요: ";
+    cin >> name;
+
+    auto member = searchMemberByName(name);
     printMember(member);
 
     printGoMainMenu();
 }
+
 void MemberManager::inputMember() {
     cout << "회원 정보 입력 기능입니다. " << endl << endl;
     int more = 0;
@@ -84,7 +87,6 @@ void MemberManager::inputMember() {
             cin >> newMember.name;
             cout << "성별을 입력해주세요(남성: 1, 여성: 2): ";
             cin >> newMember.sex;
-
             cout << "나이를 입력해주세요: ";
             cin >> newMember.age;
 
