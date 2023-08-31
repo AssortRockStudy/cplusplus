@@ -1,6 +1,7 @@
 #include "memberManager.h"
 
 #include <Windows.h>
+#include <algorithm>
 
 void MemberManager::Run() {
     bool quit = false;
@@ -8,16 +9,19 @@ void MemberManager::Run() {
     while (!quit) {
         int select = inputMenu();
         switch (select) {
-            case Menu::INPUT:
-                inputMember();
-                break;
-            case Menu::PRINTALL:
-                printAllMember();
-                break;
-            case Menu::QUIT:
-                printByeMsg();
-                quit = true;
-                break;
+        case Menu::INPUT:
+            inputMember();
+            break;
+        case Menu::SERACH_NAME:
+            searchByName();
+            break;
+        case Menu::PRINTALL:
+            printAllMember();
+            break;
+        case Menu::QUIT:
+            printByeMsg();
+            quit = true;
+            break;
         }
     }
 };
@@ -26,9 +30,10 @@ void MemberManager::Run() {
 int MemberManager::inputMenu() {
     int input;
     while (true) {
-        cout << "1. 회원 정보 추가" << endl;
-        cout << "2. 회원 모두 출력" << endl;
-        cout << "3. 끝내기" << endl;
+        cout << Menu::INPUT << ". 회원 정보 추가" << endl;
+        cout << Menu::SERACH_NAME << ". 회원 이름으로 검색" << endl;
+        cout << Menu::PRINTALL << ". 회원 모두 출력" << endl;
+        cout << Menu::QUIT << ". 끝내기" << endl;
 
         cout << endl << "실행할 번호를 입력해주세요: ";
         cin >> input;
@@ -43,6 +48,32 @@ int MemberManager::inputMenu() {
     return input;
 };
 
+list<MemberManager::Member>::iterator MemberManager::searchByName() {
+    // 이름으로 탐색
+    // 찾으면 Member 리턴, 못찾으면 nullptr 리턴
+    // vector 순회? map과 vector 둘 다 갖고있기?'
+
+    system("cls");
+    string _name;
+    cout << "검색할 이름을 입력해주세요: ";
+    cin >> _name;
+    auto first = members.begin();
+    auto last = members.end();
+    while (first != last) {
+        if (first->name == _name)
+            break;
+        ++first;
+    }
+    if (first == last) {
+        cout << "존재하지 않는 회원입니다." << endl;
+        printGoMainMenu();
+        return first;
+    }
+    cout << *first;
+
+    printGoMainMenu();
+    return first;
+}
 void MemberManager::inputMember() {
     cout << "회원 정보 입력 기능입니다. " << endl << endl;
     int more = 0;
@@ -93,12 +124,7 @@ void MemberManager::printAllMember() {
     cout << "=====================" << endl << endl;
     cout << "총 " << curCount << "명 입니다." << endl;
 
-    uint32_t wait;
-    cout << endl << "아무키나 입력시 메인 메뉴로 돌아갑니다." << endl;
-
-    cin >> wait;
-
-    system("cls");
+    printGoMainMenu();
 }
 
 void MemberManager::printWelcomMsg() {
@@ -127,4 +153,15 @@ bool MemberManager::Member::isValid() {
     }
 
     return valid;
+}
+
+void MemberManager::printGoMainMenu() {
+    uint32_t wait;
+    cout << endl << "아무키나 입력시 메인 메뉴로 돌아갑니다." << endl;
+
+    cin >> wait;
+    cin.clear();
+    cin.ignore(256, '\n');
+
+    system("cls");
 }
