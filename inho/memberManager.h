@@ -27,6 +27,7 @@ class MemberManager {
         PRINTALL,
         PRINT_FILTER,
         MODIFY,
+        ERASE,
         QUIT,
         END
     };
@@ -113,6 +114,7 @@ class MemberManager {
     bool isAscending();
     void printAllMember();
     void printFilteredMember();
+    void eraseMember();
 
     void printMember(list<Member>::iterator& it);
     void printWelcomMsg();

@@ -25,6 +25,9 @@ void MemberManager::Run() {
         case Menu::MODIFY:
             modifyMember();
             break;
+        case Menu::ERASE:
+            eraseMember();
+            break;
         case Menu::QUIT:
             printByeMsg();
             quit = true;
@@ -42,6 +45,7 @@ int MemberManager::inputMenu() {
         cout << Menu::PRINTALL << ". 회원 모두 출력" << endl;
         cout << Menu::PRINT_FILTER << ". 회원 필터 출력" << endl;
         cout << Menu::MODIFY << ". 회원 정보 수정" << endl;
+        cout << Menu::ERASE << ". 회원 정보 삭제" << endl;
         cout << Menu::QUIT << ". 끝내기" << endl;
 
         cout << endl << "실행할 번호를 입력해주세요: ";
@@ -328,6 +332,30 @@ void MemberManager::printByeMsg() {
     system("cls");
     cout << "이용해주셔서 감사합니다!" << endl;
 };
+
+void MemberManager::eraseMember() {
+    if (curCount == 0) {
+        cout << "입력된 회원 정보가 없습니다." << endl;
+        printGoMainMenu();
+        return;
+    }
+    string dName;
+    cout << "삭제할 멤버의 이름을 입력하세요: ";
+    cin >> dName;
+
+    auto it = searchMemberByName(dName);
+    int  answer;
+    if (it == members.end()) {
+        cout << "해당 이름의 멤버가 없습니다." << endl;
+
+    } else {
+        members.erase(it);
+        curCount--;
+        cout << "성공적으로 삭제되었습니다. " << endl;
+    }
+
+    printGoMainMenu();
+}
 
 bool MemberManager::Member::isValid() {
     bool valid = false;
