@@ -20,7 +20,16 @@ using std::string;
 class MemberManager {
   public:
     enum Sex { NO, MAN, WOMAN };
-    enum Menu { NONE, INPUT, SEARCH_NAME, PRINTALL, MODIFY, QUIT, END };
+    enum Menu {
+        NONE,
+        INPUT,
+        SEARCH_NAME,
+        PRINTALL,
+        PRINT_FILTER,
+        MODIFY,
+        QUIT,
+        END
+    };
 
   public:
     // 멤버는 이름, 성별, 나이를 입력받음
@@ -48,6 +57,7 @@ class MemberManager {
         bool isValid();
 
         friend std::ostream& operator<<(std::ostream& os, const Member& mem) {
+            cout << "=====================" << endl << endl;
             os << "이름: " << mem.name << endl;
             if (mem.sex == Sex::MAN) {
                 os << "성별: 남자" << endl;
@@ -102,6 +112,7 @@ class MemberManager {
     bool isDuplicate(const Member& _chk);
     bool isAscending();
     void printAllMember();
+    void printFilteredMember();
 
     void printMember(list<Member>::iterator& it);
     void printWelcomMsg();

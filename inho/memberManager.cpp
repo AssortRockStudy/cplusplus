@@ -19,6 +19,9 @@ void MemberManager::Run() {
         case Menu::PRINTALL:
             printAllMember();
             break;
+        case Menu::PRINT_FILTER:
+            printFilteredMember();
+            break;
         case Menu::MODIFY:
             modifyMember();
             break;
@@ -37,6 +40,7 @@ int MemberManager::inputMenu() {
         cout << Menu::INPUT << ". 회원 정보 추가" << endl;
         cout << Menu::SEARCH_NAME << ". 회원 이름으로 검색" << endl;
         cout << Menu::PRINTALL << ". 회원 모두 출력" << endl;
+        cout << Menu::PRINT_FILTER << ". 회원 필터 출력" << endl;
         cout << Menu::MODIFY << ". 회원 정보 수정" << endl;
         cout << Menu::QUIT << ". 끝내기" << endl;
 
@@ -241,7 +245,7 @@ void MemberManager::printAllMember() {
     }
 
     for (auto it = members.begin(); it != members.end(); ++it) {
-        cout << "=====================" << endl << endl;
+
         cout << *it << endl << endl;
     }
     cout << "=====================" << endl << endl;
@@ -250,10 +254,68 @@ void MemberManager::printAllMember() {
     printGoMainMenu();
 }
 
+void MemberManager::printFilteredMember() {
+    if (curCount == 0) {
+        cout << "입력된 회원 정보가 없습니다." << endl;
+        printGoMainMenu();
+        return;
+    }
+
+    int filteredSex;
+    while (true) {
+        cout << "어떤 성별만 확인할 지 고르세요(1. 남성, 2. 여성, 3.모두): ";
+        cin >> filteredSex;
+        cin.clear();
+        cin.ignore(256, '\n');
+        if (filteredSex >= 1 && filteredSex <= 3) {
+            break;
+        } else {
+            cout << "잘못된 입력입니다. 다시입력하세요 " << endl;
+        }
+    }
+
+    int ageQuot;
+    while (true) {
+        cout
+            << "어떤 나이대를 확인할 지 고르세요(1. 10대, 2. 20대, 3. 30대, 4. "
+               "40대, 5. 이외, 6. 모두)"
+            << endl;
+        cin >> ageQuot;
+        cin.clear();
+        cin.ignore(256, '\n');
+        if (ageQuot >= 1 && ageQuot <= 6) {
+            break;
+        } else {
+            cout << "잘못된 입력입니다. 다시입력하세요 " << endl;
+        }
+    }
+
+    int cnt = 0;
+    for (auto it = members.begin(); it != members.end(); ++it) {
+        if (filteredSex == it->sex || filteredSex == 3) {
+            cnt++;
+            if (ageQuot == 6) {
+                cout << *it << endl;
+
+            } else if (it->age / 10 == ageQuot) {
+                cout << *it << endl;
+            } else if (ageQuot == 5 && ((it->age / 10) >= ageQuot)) {
+                cout << *it << endl;
+            } else {
+                cnt--;
+            }
+        }
+    }
+    cout << "총 " << cnt << "명 입니다." << endl;
+
+    printGoMainMenu();
+}
+
 void MemberManager::printMember(list<Member>::iterator& it) {
     if (it == members.end()) {
         cout << "존재하지 않는 회원입니다." << endl;
     } else {
+
         cout << *it;
     }
 }
