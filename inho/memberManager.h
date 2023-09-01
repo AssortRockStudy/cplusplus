@@ -36,22 +36,24 @@ class MemberManager {
     // 멤버는 이름, 성별, 나이를 입력받음
     class Member {
         friend class MemberManager;
-        enum Attribute { NONE, ALL, NAME, AGE, SEX };
+        enum Attribute { NONE, ALL, NAME, AGE, SEX, GROUP };
 
 #define INPUT_NAME 0x01
 #define INPUT_AGE 0x02
 #define INPUT_SEX 0x04
-#define INPUT_ALL 0x07
+#define INPUT_GROUP 0x10
+#define INPUT_ALL INPUT_NAME | INPUT_AGE | INPUT_SEX | INPUT_GROUP
 
       private:
         string   name;
         uint32_t sex;
         uint32_t age;
+        string   group;
 
       public:
-        Member() : name(""), sex(0), age(0){};
-        Member(string _name, uint32_t _sex, uint32_t _age)
-            : name(_name), sex(_sex), age(_age){};
+        Member() : name(""), sex(0), age(0), group(""){};
+        Member(string _name, uint32_t _sex, uint32_t _age, string _group = "")
+            : name(_name), sex(_sex), age(_age), group(_group){};
         ~Member(){};
 
       public:
@@ -68,6 +70,8 @@ class MemberManager {
                 os << "성별: 미상" << endl;
             }
             os << "나이: " << mem.age << endl;
+            os << "그룹: " << mem.group << endl;
+
             return os;
         }
 
@@ -77,6 +81,8 @@ class MemberManager {
             if (this->age != _oth.age)
                 return false;
             if (this->sex != _oth.sex)
+                return false;
+            if (this->group != _oth.group)
                 return false;
 
             return true;

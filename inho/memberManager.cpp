@@ -111,6 +111,7 @@ void MemberManager::modifyMember() {
             cout << Member::Attribute::NAME << ". 이름" << endl;
             cout << Member::Attribute::AGE << ". 나이" << endl;
             cout << Member::Attribute::SEX << ". 성별" << endl;
+            cout << Member::Attribute::GROUP << ". 그룹" << endl;
 
             cout << "수정할 정보를 선택하세요: ";
             cin >> idx;
@@ -129,6 +130,9 @@ void MemberManager::modifyMember() {
                 break;
             case Member::Attribute::SEX:
                 mask |= INPUT_SEX;
+                break;
+            case Member::Attribute::GROUP:
+                mask |= INPUT_GROUP;
                 break;
             default:
                 system("cls");
@@ -151,10 +155,18 @@ void MemberManager::modifyMemberByAttribute(std::list<Member>::iterator& _it,
     if (_mask & INPUT_SEX) {
         cout << "변경할 성별을 입력해주세요(남성: 1, 여성: 2): ";
         cin >> _it->sex;
+        cin.clear();
+        cin.ignore(256, '\n');
     }
     if (_mask & INPUT_AGE) {
         cout << "변경할 나이를 입력해주세요: ";
         cin >> _it->age;
+        cin.clear();
+        cin.ignore(256, '\n');
+    }
+    if (_mask & INPUT_GROUP) {
+        cout << "변경할 그룹을 입력해주세요: ";
+        cin >> _it->group;
     }
 }
 
@@ -178,8 +190,14 @@ void MemberManager::inputMember() {
             cin >> newMember.name;
             cout << "성별을 입력해주세요(남성: 1, 여성: 2): ";
             cin >> newMember.sex;
+            cin.clear();
+            cin.ignore(256, '\n');
             cout << "나이를 입력해주세요: ";
             cin >> newMember.age;
+            cin.clear();
+            cin.ignore(256, '\n');
+            cout << "그룹을 입력해주세요: ";
+            cin >> newMember.group;
 
             if (newMember.isValid()) {
                 if (!isDuplicate(newMember)) {
