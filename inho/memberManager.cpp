@@ -10,22 +10,22 @@ void MemberManager::Run() {
     while (!quit) {
         int select = inputMenu();
         switch (select) {
-            case Menu::INPUT:
-                inputMember();
-                break;
-            case Menu::SEARCH_NAME:
-                searchByName();
-                break;
-            case Menu::PRINTALL:
-                printAllMember();
-                break;
-            case Menu::MODIFY:
-                modifyMember();
-                break;
-            case Menu::QUIT:
-                printByeMsg();
-                quit = true;
-                break;
+        case Menu::INPUT:
+            inputMember();
+            break;
+        case Menu::SEARCH_NAME:
+            searchByName();
+            break;
+        case Menu::PRINTALL:
+            printAllMember();
+            break;
+        case Menu::MODIFY:
+            modifyMember();
+            break;
+        case Menu::QUIT:
+            printByeMsg();
+            quit = true;
+            break;
         }
     }
 };
@@ -52,12 +52,13 @@ int MemberManager::inputMenu() {
 
     return input;
 };
-list<MemberManager::Member>::iterator MemberManager::searchMemberByName(
-    const string& name) {
+list<MemberManager::Member>::iterator
+MemberManager::searchMemberByName(const string& name) {
     auto first = members.begin();
     auto last = members.end();
     while (first != last) {
-        if (first->name == name) break;
+        if (first->name == name)
+            break;
         ++first;
     }
     return first;
@@ -93,7 +94,7 @@ void MemberManager::modifyMember() {
 
     } else {
         bool loop = true;
-        int mask = 0;
+        int  mask = 0;
         while (loop) {
             loop = false;
 
@@ -109,23 +110,23 @@ void MemberManager::modifyMember() {
             cin.ignore(256, '\n');
 
             switch (idx) {
-                case Member::Attribute::ALL:
-                    mask |= INPUT_ALL;
-                    break;
-                case Member::Attribute::NAME:
-                    mask |= INPUT_NAME;
-                    break;
-                case Member::Attribute::AGE:
-                    mask |= INPUT_AGE;
-                    break;
-                case Member::Attribute::SEX:
-                    mask |= INPUT_SEX;
-                    break;
-                default:
-                    system("cls");
-                    cout << "잘못된 입력입니다. 다시 입력해주세요" << endl;
-                    loop = true;
-                    break;
+            case Member::Attribute::ALL:
+                mask |= INPUT_ALL;
+                break;
+            case Member::Attribute::NAME:
+                mask |= INPUT_NAME;
+                break;
+            case Member::Attribute::AGE:
+                mask |= INPUT_AGE;
+                break;
+            case Member::Attribute::SEX:
+                mask |= INPUT_SEX;
+                break;
+            default:
+                system("cls");
+                cout << "잘못된 입력입니다. 다시 입력해주세요" << endl;
+                loop = true;
+                break;
             }
         }
         modifyMemberByAttribute(member, mask);
@@ -151,7 +152,8 @@ void MemberManager::modifyMemberByAttribute(std::list<Member>::iterator& _it,
 
 bool MemberManager::isDuplicate(const Member& _chk) {
     for (auto it = members.begin(); it != members.end(); ++it) {
-        if (*it == _chk) return true;
+        if (*it == _chk)
+            return true;
     }
     return false;
 }
@@ -208,10 +210,36 @@ void MemberManager::inputMember() {
     system("cls");
 }
 
+bool MemberManager::isAscending() {
+    while (true) {
+        int answer = 0;
+        cout << "정렬방법을 선택해주세요(오름차순: 1, 내림차순: 2): ";
+        cin >> answer;
+        cin.clear();
+        cin.ignore(256, '\n');
+        if (answer == 1) {
+            return true;
+        } else if (answer == 2) {
+            return false;
+        } else {
+            cout << "잘못된 입력입니다. 다시 입력해주세요." << endl;
+        }
+    }
+}
+
 void MemberManager::printAllMember() {
     if (curCount == 0) {
         cout << "입력된 회원 정보가 없습니다." << endl;
+        printGoMainMenu();
+        return;
     }
+
+    bool ascending = isAscending();
+    members.sort();
+    if (!ascending) {
+        members.reverse();
+    }
+
     for (auto it = members.begin(); it != members.end(); ++it) {
         cout << "=====================" << endl << endl;
         cout << *it << endl << endl;

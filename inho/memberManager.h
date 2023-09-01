@@ -18,11 +18,11 @@ using std::string;
 // 메인부터 MemberManager 객체 생성 후, start할거임
 // 리스트(회원), 회원 수,
 class MemberManager {
-   public:
+  public:
     enum Sex { NO, MAN, WOMAN };
     enum Menu { NONE, INPUT, SEARCH_NAME, PRINTALL, MODIFY, QUIT, END };
 
-   public:
+  public:
     // 멤버는 이름, 성별, 나이를 입력받음
     class Member {
         friend class MemberManager;
@@ -33,18 +33,18 @@ class MemberManager {
 #define INPUT_SEX 0x04
 #define INPUT_ALL 0x07
 
-       private:
-        string name;
+      private:
+        string   name;
         uint32_t sex;
         uint32_t age;
 
-       public:
+      public:
         Member() : name(""), sex(0), age(0){};
         Member(string _name, uint32_t _sex, uint32_t _age)
             : name(_name), sex(_sex), age(_age){};
         ~Member(){};
 
-       public:
+      public:
         bool isValid();
 
         friend std::ostream& operator<<(std::ostream& os, const Member& mem) {
@@ -61,37 +61,48 @@ class MemberManager {
         }
 
         bool operator==(const Member& _oth) {
-            if (this->name != _oth.name) return false;
-            if (this->age != _oth.age) return false;
-            if (this->sex != _oth.sex) return false;
+            if (this->name != _oth.name)
+                return false;
+            if (this->age != _oth.age)
+                return false;
+            if (this->sex != _oth.sex)
+                return false;
 
             return true;
         }
 
         bool operator!=(const Member& _oth) { return !(*this == _oth); }
+
+        bool operator<(const Member& _oth) {
+            return this->name < _oth.name ? true : false;
+        }
+        bool operator>(const Member& _oth) {
+            return this->name > _oth.name ? true : false;
+        }
     };
 
     list<Member> members;
-    int curCount;
+    int          curCount;
 
-   public:
+  public:
     MemberManager() : curCount(0), members(){};
     ~MemberManager() { members.clear(); };
 
-   public:
+  public:
     void Run();
 
-   private:
-    int inputMenu();
-    void inputMember();
-    void searchByName();
+  private:
+    int                    inputMenu();
+    void                   inputMember();
+    void                   searchByName();
     list<Member>::iterator searchMemberByName(const string& name);
-    void modifyMember();
+    void                   modifyMember();
     void modifyMemberByAttribute(std::list<Member>::iterator& _it, int _mask);
 
     bool isDuplicate(const Member& _chk);
-
+    bool isAscending();
     void printAllMember();
+
     void printMember(list<Member>::iterator& it);
     void printWelcomMsg();
     void printByeMsg();
