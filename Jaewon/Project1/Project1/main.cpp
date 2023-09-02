@@ -15,8 +15,9 @@ using std::endl;
 // 성별에 따라, 나이대(10대, 20대 등)에 따라 필터링해서 출력
 
 struct UserData {
-	char sex;
+	bool sex;
 	char age;
+	string group;
 };
 
 bool duplicateCheck(string name);
@@ -27,6 +28,8 @@ void printAllData();
 void printFilteredData();
 void printData(map<string, UserData>::iterator);
 void printData(map<string, UserData>::reverse_iterator);
+void modifyUser();
+void eraseUser();
 
 map<string, UserData> storage;
 
@@ -39,7 +42,9 @@ int main() {
 		printf("2. 회원 모두 출력\n");
 		printf("3. 회원 검색\n");
 		printf("4. 회원 필터링 출력\n");
-		printf("5. 종료\n");
+		printf("5. 회원 정보 수정\n");
+		printf("6. 회원 삭제\n");
+		printf("7. 종료\n");
 		scanf_s("%d", &input);
 
 		switch (input)
@@ -57,6 +62,12 @@ int main() {
 			printFilteredData();
 			break;
 		case 5:
+			modifyUser();
+			break;
+		case 6:
+			eraseUser();
+			break;
+		case 7:
 			flag = false;
 			break;
 		default:
@@ -88,10 +99,12 @@ void saveUser() {
 			if (duplicated)
 				printf("중복된 이름입니다.\n");
 		}
-		printf("성별 입력(남자는 1, 여자는 2)\n");
+		printf("성별 입력(남자는 0, 여자는 1)\n");
 		scanf_s("%hhd", &user.sex);
 		printf("나이 입력\n");
 		scanf_s("%hhd", &user.age);
+		printf("그룹 입력\n");
+		cin >> user.group;
 		save(name, user);
 		int flag = 0;
 		printf("추가로 저장하시겠습니까?(y = 1 / n = 0)\n");
@@ -125,13 +138,14 @@ void printAllData() {
 	bool reverse = false;
 	printf("이름의 역순으로 출력하시려면 0번을 아니면 1번을 눌러주세요.\n");
 	cin >> reverse;
-	int cnt = 0;
+	int cnt = 1;
 	if (reverse) {
 		map<string, UserData>::iterator iter;
 		for (iter = storage.begin(); iter != storage.end(); ++iter) {
 			printf("회원 %d\n", cnt);
 			printData(iter);
 			++cnt;
+			cout << endl;
 		}
 	}
 	else {
@@ -140,6 +154,7 @@ void printAllData() {
 			printf("회원 %d\n", cnt);
 			printData(iter);
 			++cnt;
+			cout << endl;
 		}
 	}
 	char continued;
@@ -162,15 +177,16 @@ void printFilteredData() {
 		printf("1. 남자\n");
 		printf("2. 여자\n");
 		cin >> sel;
-		int selectedSex;
+		bool selectedSex;
 		if (1 == sel) 
-			selectedSex = 1;
+			selectedSex = false;
 		else 
-			selectedSex = 2;
+			selectedSex = true;
 		map<string, UserData>::iterator iter;
 		for (iter = storage.begin(); iter != storage.end(); ++iter) {
 			if (selectedSex == iter->second.sex) {
 				printData(iter);
+				cout << endl;
 			}
 		}
 	}
@@ -196,11 +212,13 @@ void printFilteredData() {
 			if (selectedAge < 4) {
 				if (selectedAge*10 <= iter->second.age && selectedAge*10 + 10 > iter->second.age) {
 					printData(iter);
+					cout << endl;
 				}
 			}
 			else {
 				if (selectedAge * 10 <= iter->second.age) {
 					printData(iter);
+					cout << endl;
 				}
 			}
 		}
@@ -215,18 +233,76 @@ void printFilteredData() {
 
 void printData(map<string, UserData>::iterator iter) {
 	cout << "이름 : " << iter->first << endl;
-	if (iter->second.sex == 1)
+	if (iter->second.sex == false)
 		printf("성별 : 남자\n");
 	else
 		printf("성별 : 여자\n");
 	printf("나이 : %d\n", iter->second.age);
+	cout << "그룹 : " << iter->second.group << endl;
 }
 
 void printData(map<string, UserData>::reverse_iterator iter) {
 	cout << "이름 : " << iter->first << endl;
-	if (iter->second.sex == 1)
+	if (iter->second.sex == false)
 		printf("성별 : 남자\n");
 	else
 		printf("성별 : 여자\n");
 	printf("나이 : %d\n", iter->second.age);
+	cout << "그룹 : " << iter->second.group << endl;
+}
+
+void eraseUser() {
+	string name;
+	system("cls");
+	printf("삭제하고 싶은 정보의 이름을 입력해주세요.\n");
+	cin >> name;
+	if (duplicateCheck(name)) {
+		map<string, UserData>::iterator iter = storage.find(name);
+		storage.erase(iter);
+		cout << "삭제되었습니다.\n" << endl;
+	}
+	else
+		cout << "해당되는 이름의 회원이 없습니다.\n" << endl;
+	char continued;
+	printf("메인 화면으로 이동하려면 아무 키나 입력하세요\n");
+	scanf_s("%s", &continued, 1);
+}
+
+void modifyUser()
+{
+	string name;
+	system("cls");
+	printf("수정하고 싶은 정보의 이름을 입력해주세요.\n");
+	cin >> name;
+	if (duplicateCheck(name)) {
+		map<string, UserData>::iterator iter = storage.find(name);
+		printData(iter);
+		int sel = -1;
+		cout << "이름을 변경하시려면 1 아니면 아무 키를 입력해주세요.\n";
+		cin >> sel;
+		if (sel == 1) {
+			cout << "기존 정보 삭제 후 새로 저장됩니다.\n" << endl;
+			storage.erase(iter);
+			cout << "회원 등록 탭으로 이동합니다. 아무 키나 입력하세요\n" << endl;
+			char continued;
+			scanf_s("%s", &continued, 1);
+			saveUser();
+		}
+		else {
+			cout << "나이 변경" << endl;
+			cin >> iter->second.age;
+			cout << "성별 변경을 하시려면 1 아니면 아무 키를 입력해주세요." << endl;
+			int change = 0;
+			cin >> change;
+			if (change == 1)
+				iter->second.sex = !(iter->second.sex);
+			cout << "그룹 변경" << endl;
+			cin >> iter->second.group;
+		}
+	}
+	else
+		cout << "해당되는 이름의 회원이 없습니다.\n" << endl;
+	char continued;
+	printf("메인 화면으로 이동하려면 아무 키나 입력하세요\n");
+	scanf_s("%s", &continued, 1);
 }
