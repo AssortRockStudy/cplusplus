@@ -25,6 +25,8 @@ void saveUser();
 void findUser();
 void printAllData();
 void printFilteredData();
+void printData(map<string, UserData>::iterator);
+void printData(map<string, UserData>::reverse_iterator);
 
 map<string, UserData> storage;
 
@@ -107,12 +109,7 @@ void findUser()
 	cin >> name;
 	if (duplicateCheck(name)) {
 		map<string, UserData>::iterator iter = storage.find(name);
-		cout << "이름 : " << iter->first << endl;
-		if (iter->second.sex == 1)
-			printf("성별 : 남자\n");
-		else
-			printf("성별 : 여자\n");
-		printf("나이 : %d\n", iter->second.age);
+		printData(iter);
 	}
 	char continued;
 	printf("메인 화면으로 이동하려면 아무 키나 입력하세요\n");
@@ -133,12 +130,7 @@ void printAllData() {
 		map<string, UserData>::iterator iter;
 		for (iter = storage.begin(); iter != storage.end(); ++iter) {
 			printf("회원 %d\n", cnt);
-			cout << "이름 : " << iter->first << endl;
-			if (iter->second.sex == 1)
-				printf("성별 : 남자\n");
-			else
-				printf("성별 : 여자\n");
-			printf("나이 : %d\n", iter->second.age);
+			printData(iter);
 			++cnt;
 		}
 	}
@@ -146,12 +138,7 @@ void printAllData() {
 		map<string, UserData>::reverse_iterator iter;
 		for (iter = storage.rbegin(); iter != storage.rend(); ++iter) {
 			printf("회원 %d\n", cnt);
-			cout << "이름 : " << iter->first << endl;
-			if (iter->second.sex == 1)
-				printf("성별 : 남자\n");
-			else
-				printf("성별 : 여자\n");
-			printf("나이 : %d\n", iter->second.age);
+			printData(iter);
 			++cnt;
 		}
 	}
@@ -183,12 +170,7 @@ void printFilteredData() {
 		map<string, UserData>::iterator iter;
 		for (iter = storage.begin(); iter != storage.end(); ++iter) {
 			if (selectedSex == iter->second.sex) {
-				cout << "이름 : " << iter->first << endl;
-				if (iter->second.sex == 1)
-					printf("성별 : 남자\n");
-				else
-					printf("성별 : 여자\n");
-				printf("나이 : %d\n", iter->second.age);
+				printData(iter);
 			}
 		}
 	}
@@ -200,48 +182,25 @@ void printFilteredData() {
 		printf("2. 20대\n");
 		printf("3. 30대\n");
 		printf("4. 40대 이상\n");
-		cin >> sel;
 		int selectedAge;
-		switch (sel)
-		{
-		case 0:
-			selectedAge = 0;
-			break;
-		case 1:
-			selectedAge = 10;
-			break;
-		case 2:
-			selectedAge = 20;
-			break;
-		case 3:
-			selectedAge = 30;
-			break;
-		case 4:
-			selectedAge = 40;
-			break;
-		default:
-			break;
-		} 
+		while (true) {
+			cin >> selectedAge;
+			if (0 <= selectedAge <= 4)
+				break;
+			else {
+				cout << "잘못된 숫자를 입력하셨습니다. 다시 입력해 주세요.";
+			}
+		}
 		map<string, UserData>::iterator iter;
 		for (iter = storage.begin(); iter != storage.end(); ++iter) {
-			if (selectedAge != 40) {
-				if (selectedAge <= iter->second.age && selectedAge + 10 > iter->second.age) {
-					cout << "이름 : " << iter->first << endl;
-					if (iter->second.sex == 1)
-						printf("성별 : 남자\n");
-					else
-						printf("성별 : 여자\n");
-					printf("나이 : %d\n", iter->second.age);
+			if (selectedAge < 4) {
+				if (selectedAge*10 <= iter->second.age && selectedAge*10 + 10 > iter->second.age) {
+					printData(iter);
 				}
 			}
 			else {
-				if (selectedAge <= iter->second.age) {
-					cout << "이름 : " << iter->first << endl;
-					if (iter->second.sex == 1)
-						printf("성별 : 남자\n");
-					else
-						printf("성별 : 여자\n");
-					printf("나이 : %d\n", iter->second.age);
+				if (selectedAge * 10 <= iter->second.age) {
+					printData(iter);
 				}
 			}
 		}
@@ -252,4 +211,22 @@ void printFilteredData() {
 	char continued;
 	printf("메인 화면으로 이동하려면 아무 키나 입력하세요\n");
 	scanf_s("%s", &continued, 1);
+}
+
+void printData(map<string, UserData>::iterator iter) {
+	cout << "이름 : " << iter->first << endl;
+	if (iter->second.sex == 1)
+		printf("성별 : 남자\n");
+	else
+		printf("성별 : 여자\n");
+	printf("나이 : %d\n", iter->second.age);
+}
+
+void printData(map<string, UserData>::reverse_iterator iter) {
+	cout << "이름 : " << iter->first << endl;
+	if (iter->second.sex == 1)
+		printf("성별 : 남자\n");
+	else
+		printf("성별 : 여자\n");
+	printf("나이 : %d\n", iter->second.age);
 }
