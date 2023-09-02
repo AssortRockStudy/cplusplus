@@ -1,4 +1,5 @@
-#pragma once
+ï»¿#pragma once
+#include "MemberAttribute.h"
 #include <iostream>
 #include <list>
 #include <string>
@@ -10,14 +11,16 @@ using std::endl;
 using std::list;
 using std::string;
 
-// ÄÜ¼ÖÀÌ ÄÑÁö¸é ¸Ş´ºÆÇÀÌ ½ÃÀÛµÇ¾î¾ß ÇÔ
-// ¸â¹ö ¸Å´ÏÀú¸¦ ½ÃÀÛ½ÃÄÑ
-// ¸Ş´ºÆÇÀÌ ³ª¿Í¾ß ÇÔ ( 1. È¸¿ø µî·Ï, 2. È¸¿ø ÀüºÎ Ãâ·Â, 3. ³¡³»±â )
-// È¸¿ø Å¬·¡½º°¡ ÇÊ¿äÇÔ
+// ì½˜ì†”ì´ ì¼œì§€ë©´ ë©”ë‰´íŒì´ ì‹œì‘ë˜ì–´ì•¼ í•¨
+// ë©¤ë²„ ë§¤ë‹ˆì €ë¥¼ ì‹œì‘ì‹œì¼œ
+// ë©”ë‰´íŒì´ ë‚˜ì™€ì•¼ í•¨ ( 1. íšŒì› ë“±ë¡, 2. íšŒì› ì „ë¶€ ì¶œë ¥, 3. ëë‚´ê¸° )
+// íšŒì› í´ë˜ìŠ¤ê°€ í•„ìš”í•¨
 
-// ¸ŞÀÎºÎÅÍ MemberManager °´Ã¼ »ı¼º ÈÄ, startÇÒ°ÅÀÓ
-// ¸®½ºÆ®(È¸¿ø), È¸¿ø ¼ö,
+// ë©”ì¸ë¶€í„° MemberManager ê°ì²´ ìƒì„± í›„, startí• ê±°ì„
+// ë¦¬ìŠ¤íŠ¸(íšŒì›), íšŒì› ìˆ˜,
 class MemberManager {
+    friend class MemberAttribute;
+
   public:
     enum Sex { NO, MAN, WOMAN };
     enum Menu {
@@ -33,7 +36,7 @@ class MemberManager {
     };
 
   public:
-    // ¸â¹ö´Â ÀÌ¸§, ¼ºº°, ³ªÀÌ¸¦ ÀÔ·Â¹ŞÀ½
+    // ë©¤ë²„ëŠ” ì´ë¦„, ì„±ë³„, ë‚˜ì´ë¥¼ ì…ë ¥ë°›ìŒ
     class Member {
         friend class MemberManager;
         enum Attribute { NONE, ALL, NAME, AGE, SEX, GROUP };
@@ -45,33 +48,73 @@ class MemberManager {
 #define INPUT_ALL INPUT_NAME | INPUT_AGE | INPUT_SEX | INPUT_GROUP
 
       private:
-        string   name;
-        uint32_t sex;
-        uint32_t age;
-        string   group;
+        std::vector<MemberAttribute*> attri;
+
+        class MemberName*  name;
+        class MemberAge*   age;
+        class MemberSex*   sex;
+        class MemberGroup* group;
 
       public:
-        Member() : name(""), sex(0), age(0), group(""){};
-        Member(string _name, uint32_t _sex, uint32_t _age, string _group = "")
-            : name(_name), sex(_sex), age(_age), group(_group){};
-        ~Member(){};
+        Member() : name(nullptr), age(nullptr), sex(nullptr), group(nullptr) {
+            name = new MemberName;
+            age = new MemberAge;
+            sex = new MemberSex;
+            group = new MemberGroup;
+            attri.push_back(name);
+            attri.push_back(age);
+            attri.push_back(sex);
+            attri.push_back(group);
+        };
+
+        ~Member() {
+            for (int i = 0; i < attri.size(); ++i) {
+                delete attri[i];
+            }
+        };
 
       public:
-        bool isValid();
+        bool isValid() {
+            for (int i = 0; i < attri.size(); ++i) {
+                if (!attri[i]->isValid()) {
+                    return false;
+                }
+            }
+            return true;
+        };
+        void inputData() {
+            for (int i = 0; i < attri.size(); ++i) {
+                attri[i]->inputData();
+            }
+        }
+
+        void printData() {
+            cout << "======================" << endl << endl;
+            for (int i = 0; i < attri.size(); ++i) {
+                attri[i]->printData();
+                cout << endl;
+            }
+            cout << endl;
+        }
 
         friend std::ostream& operator<<(std::ostream& os, const Member& mem) {
             cout << "=====================" << endl << endl;
-            os << "ÀÌ¸§: " << mem.name << endl;
-            if (mem.sex == Sex::MAN) {
-                os << "¼ºº°: ³²ÀÚ" << endl;
-            } else if (mem.sex == Sex::WOMAN) {
-                os << "¼ºº°: ¿©ÀÚ" << endl;
-            } else {
-                os << "¼ºº°: ¹Ì»ó" << endl;
+            for (int i = 0; i < mem.attri.size(); i++) {
+                mem.attri[i]->printData();
+                cout << endl;
             }
-            os << "³ªÀÌ: " << mem.age << endl;
-            os << "±×·ì: " << mem.group << endl;
+            cout << endl;
 
+            // os << "ì´ë¦„: " << mem.name << endl;
+            // if (mem.sex == Sex::MAN) {
+            //     os << "ì„±ë³„: ë‚¨ì" << endl;
+            // } else if (mem.sex == Sex::WOMAN) {
+            //     os << "ì„±ë³„: ì—¬ì" << endl;
+            // } else {
+            //     os << "ì„±ë³„: ë¯¸ìƒ" << endl;
+            // }
+            // os << "ë‚˜ì´: " << mem.age << endl;
+            // os << "ê·¸ë£¹: " << mem.group << endl;
             return os;
         }
 
@@ -98,8 +141,8 @@ class MemberManager {
         }
     };
 
-    list<Member> members;
-    int          curCount;
+    list<Member*> members;
+    int           curCount;
 
   public:
     MemberManager() : curCount(0), members(){};
@@ -109,20 +152,20 @@ class MemberManager {
     void Run();
 
   private:
-    int                    inputMenu();
-    void                   inputMember();
-    void                   searchByName();
-    list<Member>::iterator searchMemberByName(const string& name);
-    void                   modifyMember();
-    void modifyMemberByAttribute(std::list<Member>::iterator& _it, int _mask);
+    int                     inputMenu();
+    void                    inputMember();
+    void                    searchByName();
+    list<Member*>::iterator searchMemberByName(const string& name);
+    void                    modifyMember();
+    void modifyMemberByAttribute(std::list<Member*>::iterator& _it, int _mask);
 
-    bool isDuplicate(const Member& _chk);
+    bool isDuplicate(Member* _chk);
     bool isAscending();
     void printAllMember();
     void printFilteredMember();
     void eraseMember();
 
-    void printMember(list<Member>::iterator& it);
+    void printMember(list<Member*>::iterator& it);
     void printWelcomMsg();
     void printByeMsg();
 

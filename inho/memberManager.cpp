@@ -1,4 +1,4 @@
-#include "memberManager.h"
+ï»¿#include "memberManager.h"
 
 #include <Windows.h>
 
@@ -40,19 +40,20 @@ void MemberManager::Run() {
 int MemberManager::inputMenu() {
     int input;
     while (true) {
-        cout << Menu::INPUT << ". È¸¿ø Á¤º¸ Ãß°¡" << endl;
-        cout << Menu::SEARCH_NAME << ". È¸¿ø ÀÌ¸§À¸·Î °Ë»ö" << endl;
-        cout << Menu::PRINTALL << ". È¸¿ø ¸ğµÎ Ãâ·Â" << endl;
-        cout << Menu::PRINT_FILTER << ". È¸¿ø ÇÊÅÍ Ãâ·Â" << endl;
-        cout << Menu::MODIFY << ". È¸¿ø Á¤º¸ ¼öÁ¤" << endl;
-        cout << Menu::ERASE << ". È¸¿ø Á¤º¸ »èÁ¦" << endl;
-        cout << Menu::QUIT << ". ³¡³»±â" << endl;
+        cout << Menu::INPUT << ". íšŒì› ì •ë³´ ì¶”ê°€" << endl;
+        cout << Menu::SEARCH_NAME << ". íšŒì› ì´ë¦„ìœ¼ë¡œ ê²€ìƒ‰" << endl;
+        cout << Menu::PRINTALL << ". íšŒì› ëª¨ë‘ ì¶œë ¥" << endl;
+        cout << Menu::PRINT_FILTER << ". íšŒì› í•„í„° ì¶œë ¥" << endl;
+        cout << Menu::MODIFY << ". íšŒì› ì •ë³´ ìˆ˜ì •" << endl;
+        cout << Menu::ERASE << ". íšŒì› ì •ë³´ ì‚­ì œ" << endl;
+        cout << Menu::QUIT << ". ëë‚´ê¸°" << endl;
 
-        cout << endl << "½ÇÇàÇÒ ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä: ";
+        cout << endl << "ì‹¤í–‰í•  ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”: ";
+
         cin >> input;
         system("cls");
         if (input < Menu::INPUT || input > Menu::END) {
-            cout << "Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä" << endl << endl;
+            cout << "ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”" << endl << endl;
         } else {
             break;
         }
@@ -60,12 +61,12 @@ int MemberManager::inputMenu() {
 
     return input;
 };
-list<MemberManager::Member>::iterator
+list<MemberManager::Member*>::iterator
 MemberManager::searchMemberByName(const string& name) {
     auto first = members.begin();
     auto last = members.end();
     while (first != last) {
-        if (first->name == name)
+        if ((*first)->name->data == name)
             break;
         ++first;
     }
@@ -73,13 +74,13 @@ MemberManager::searchMemberByName(const string& name) {
 }
 
 void MemberManager::searchByName() {
-    // ÀÌ¸§À¸·Î Å½»ö
-    // Ã£À¸¸é Member ¸®ÅÏ, ¸øÃ£À¸¸é nullptr ¸®ÅÏ
-    // vector ¼øÈ¸? map°ú vector µÑ ´Ù °®°íÀÖ±â?'
+    // ì´ë¦„ìœ¼ë¡œ íƒìƒ‰
+    // ì°¾ìœ¼ë©´ Member ë¦¬í„´, ëª»ì°¾ìœ¼ë©´ nullptr ë¦¬í„´
+    // vector ìˆœíšŒ? mapê³¼ vector ë‘˜ ë‹¤ ê°–ê³ ìˆê¸°?'
 
     system("cls");
     string name;
-    cout << "°Ë»öÇÒ ÀÌ¸§À» ÀÔ·ÂÇØÁÖ¼¼¿ä: ";
+    cout << "ê²€ìƒ‰í•  ì´ë¦„ì„ ì…ë ¥í•´ì£¼ì„¸ìš”: ";
     cin >> name;
 
     auto member = searchMemberByName(name);
@@ -92,13 +93,13 @@ void MemberManager::modifyMember() {
     string name;
     system("cls");
 
-    cout << "º¯°æÇÒ È¸¿øÀÇ ÀÌ¸§À» ÀÔ·ÂÇØÁÖ¼¼¿ä: ";
+    cout << "ë³€ê²½í•  íšŒì›ì˜ ì´ë¦„ì„ ì…ë ¥í•´ì£¼ì„¸ìš”: ";
     cin >> name;
 
     auto member = searchMemberByName(name);
 
     if (member == members.end()) {
-        cout << "ÇØ´ç ÀÌ¸§ÀÇ È¸¿øÀÌ ¾ø½À´Ï´Ù." << endl;
+        cout << "í•´ë‹¹ ì´ë¦„ì˜ íšŒì›ì´ ì—†ìŠµë‹ˆë‹¤." << endl;
 
     } else {
         bool loop = true;
@@ -107,13 +108,13 @@ void MemberManager::modifyMember() {
             loop = false;
 
             int idx = 0;
-            cout << Member::Attribute::ALL << ". ¸ğµç Á¤º¸" << endl;
-            cout << Member::Attribute::NAME << ". ÀÌ¸§" << endl;
-            cout << Member::Attribute::AGE << ". ³ªÀÌ" << endl;
-            cout << Member::Attribute::SEX << ". ¼ºº°" << endl;
-            cout << Member::Attribute::GROUP << ". ±×·ì" << endl;
+            cout << Member::Attribute::ALL << ". ëª¨ë“  ì •ë³´" << endl;
+            cout << Member::Attribute::NAME << ". ì´ë¦„" << endl;
+            cout << Member::Attribute::AGE << ". ë‚˜ì´" << endl;
+            cout << Member::Attribute::SEX << ". ì„±ë³„" << endl;
+            cout << Member::Attribute::GROUP << ". ê·¸ë£¹" << endl;
 
-            cout << "¼öÁ¤ÇÒ Á¤º¸¸¦ ¼±ÅÃÇÏ¼¼¿ä: ";
+            cout << "ìˆ˜ì •í•  ì •ë³´ë¥¼ ì„ íƒí•˜ì„¸ìš”: ";
             cin >> idx;
             cin.clear();
             cin.ignore(256, '\n');
@@ -136,7 +137,7 @@ void MemberManager::modifyMember() {
                 break;
             default:
                 system("cls");
-                cout << "Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä" << endl;
+                cout << "ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”" << endl;
                 loop = true;
                 break;
             }
@@ -146,70 +147,73 @@ void MemberManager::modifyMember() {
     printGoMainMenu();
 }
 
-void MemberManager::modifyMemberByAttribute(std::list<Member>::iterator& _it,
+void MemberManager::modifyMemberByAttribute(std::list<Member*>::iterator& _it,
                                             int _mask) {
     if (_mask & INPUT_NAME) {
-        cout << "º¯°æÇÒ ÀÌ¸§À» ÀÔ·ÂÇØÁÖ¼¼¿ä: ";
-        cin >> _it->name;
+        cout << "ë³€ê²½í•  ì´ë¦„ì„ ì…ë ¥í•´ì£¼ì„¸ìš”: ";
+        cin >> (*_it)->name->data;
     }
     if (_mask & INPUT_SEX) {
-        cout << "º¯°æÇÒ ¼ºº°À» ÀÔ·ÂÇØÁÖ¼¼¿ä(³²¼º: 1, ¿©¼º: 2): ";
-        cin >> _it->sex;
+        cout << "ë³€ê²½í•  ì„±ë³„ì„ ì…ë ¥í•´ì£¼ì„¸ìš”(ë‚¨ì„±: 1, ì—¬ì„±: 2): ";
+        cin >> (*_it)->sex->data;
         cin.clear();
         cin.ignore(256, '\n');
     }
     if (_mask & INPUT_AGE) {
-        cout << "º¯°æÇÒ ³ªÀÌ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä: ";
-        cin >> _it->age;
+        cout << "ë³€ê²½í•  ë‚˜ì´ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”: ";
+        cin >> (*_it)->age->data;
         cin.clear();
         cin.ignore(256, '\n');
     }
     if (_mask & INPUT_GROUP) {
-        cout << "º¯°æÇÒ ±×·ìÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä: ";
-        cin >> _it->group;
+        cout << "ë³€ê²½í•  ê·¸ë£¹ì„ ì…ë ¥í•´ì£¼ì„¸ìš”: ";
+        cin >> (*_it)->group->data;
     }
 }
 
-bool MemberManager::isDuplicate(const Member& _chk) {
+bool MemberManager::isDuplicate(Member* _chk) {
     for (auto it = members.begin(); it != members.end(); ++it) {
-        if (*it == _chk)
+        if ((*(*it)) == *_chk)
             return true;
     }
     return false;
 }
 
 void MemberManager::inputMember() {
-    cout << "È¸¿ø Á¤º¸ ÀÔ·Â ±â´ÉÀÔ´Ï´Ù. " << endl << endl;
+    cout << "íšŒì› ì •ë³´ ì…ë ¥ ê¸°ëŠ¥ì…ë‹ˆë‹¤. " << endl << endl;
     int more = 0;
     while (true) {
-        Member newMember;
+        Member* newMember = new Member;
         while (true) {
-            // ¸â¹ö ÀÔ·Â¿ë Ãâ·Â
-            cin.clear();
-            cout << "ÀÌ¸§À» ÀÔ·ÂÇØÁÖ¼¼¿ä: ";
-            cin >> newMember.name;
-            cout << "¼ºº°À» ÀÔ·ÂÇØÁÖ¼¼¿ä(³²¼º: 1, ¿©¼º: 2): ";
-            cin >> newMember.sex;
-            cin.clear();
-            cin.ignore(256, '\n');
-            cout << "³ªÀÌ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä: ";
-            cin >> newMember.age;
-            cin.clear();
-            cin.ignore(256, '\n');
-            cout << "±×·ìÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä: ";
-            cin >> newMember.group;
+            // ë©¤ë²„ ì…ë ¥ìš© ì¶œë ¥
+            // cin.clear();
+            // cin.ignore(256, '\n');
+            // cout << "ì´ë¦„ì„ ì…ë ¥í•´ì£¼ì„¸ìš”: ";
+            // cin >> newMember.name;
+            // cout << "ì„±ë³„ì„ ì…ë ¥í•´ì£¼ì„¸ìš”(ë‚¨ì„±: 1, ì—¬ì„±: 2): ";
+            // cin >> newMember.sex;
+            // cin.clear();
+            // cin.ignore(256, '\n');
+            // cout << "ë‚˜ì´ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”: ";
+            // cin >> newMember.age;
+            // cin.clear();
+            // cin.ignore(256, '\n');
+            // cout << "ê·¸ë£¹ì„ ì…ë ¥í•´ì£¼ì„¸ìš”: ";
+            // cin >> newMember.group;
+            newMember->inputData();
 
-            if (newMember.isValid()) {
+            if (newMember->isValid()) {
                 if (!isDuplicate(newMember)) {
                     break;
                 } else {
-                    cout << "Áßº¹µÇ´Â È¸¿øÀÔ´Ï´Ù! " << endl << endl;
+                    cout << "ì¤‘ë³µë˜ëŠ” íšŒì›ì…ë‹ˆë‹¤! " << endl << endl;
                 }
             } else {
-                cout << "À¯È¿ÇÏÁö ¾ÊÀº Á¤º¸ÀÔ´Ï´Ù. " << endl << endl;
+                cout << "ìœ íš¨í•˜ì§€ ì•Šì€ ì •ë³´ì…ë‹ˆë‹¤. " << endl << endl;
             }
+
             int quit = 0;
-            cout << "±×¸¸ ÀÔ·ÂÇÏ½Ã°Ú½À´Ï±î(yes: 1, no: 0): ";
+            cout << "ê·¸ë§Œ ì…ë ¥í•˜ì‹œê² ìŠµë‹ˆê¹Œ(yes: 1, no: 0): ";
             cin >> quit;
             cin.clear();
             cin.ignore(256, '\n');
@@ -221,7 +225,7 @@ void MemberManager::inputMember() {
         members.push_back(newMember);
         curCount++;
 
-        cout << "Ãß°¡·Î È¸¿øÀ» ÀÔ·ÂÇÏ½Ã°Ú½À´Ï±î(yes: 1, no: 0): ";
+        cout << "ì¶”ê°€ë¡œ íšŒì›ì„ ì…ë ¥í•˜ì‹œê² ìŠµë‹ˆê¹Œ(yes: 1, no: 0): ";
 
         cin >> more;
         cin.clear();
@@ -230,7 +234,7 @@ void MemberManager::inputMember() {
         if (!more) {
             break;
         } else {
-            cout << endl << "====================== ¸â¹ö Ãß°¡" << endl << endl;
+            cout << endl << "====================== ë©¤ë²„ ì¶”ê°€" << endl << endl;
         }
     }
     system("cls");
@@ -239,7 +243,7 @@ void MemberManager::inputMember() {
 bool MemberManager::isAscending() {
     while (true) {
         int answer = 0;
-        cout << "Á¤·Ä¹æ¹ıÀ» ¼±ÅÃÇØÁÖ¼¼¿ä(¿À¸§Â÷¼ø: 1, ³»¸²Â÷¼ø: 2): ";
+        cout << "ì •ë ¬ë°©ë²•ì„ ì„ íƒí•´ì£¼ì„¸ìš”(ì˜¤ë¦„ì°¨ìˆœ: 1, ë‚´ë¦¼ì°¨ìˆœ: 2): ";
         cin >> answer;
         cin.clear();
         cin.ignore(256, '\n');
@@ -248,14 +252,14 @@ bool MemberManager::isAscending() {
         } else if (answer == 2) {
             return false;
         } else {
-            cout << "Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä." << endl;
+            cout << "ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”." << endl;
         }
     }
 }
 
 void MemberManager::printAllMember() {
     if (curCount == 0) {
-        cout << "ÀÔ·ÂµÈ È¸¿ø Á¤º¸°¡ ¾ø½À´Ï´Ù." << endl;
+        cout << "ì…ë ¥ëœ íšŒì› ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤." << endl;
         printGoMainMenu();
         return;
     }
@@ -267,40 +271,39 @@ void MemberManager::printAllMember() {
     }
 
     for (auto it = members.begin(); it != members.end(); ++it) {
-
-        cout << *it << endl << endl;
+        (*it)->printData();
     }
     cout << "=====================" << endl << endl;
-    cout << "ÃÑ " << curCount << "¸í ÀÔ´Ï´Ù." << endl;
+    cout << "ì´ " << curCount << "ëª… ì…ë‹ˆë‹¤." << endl;
 
     printGoMainMenu();
 }
 
 void MemberManager::printFilteredMember() {
     if (curCount == 0) {
-        cout << "ÀÔ·ÂµÈ È¸¿ø Á¤º¸°¡ ¾ø½À´Ï´Ù." << endl;
+        cout << "ì…ë ¥ëœ íšŒì› ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤." << endl;
         printGoMainMenu();
         return;
     }
 
     int filteredSex;
     while (true) {
-        cout << "¾î¶² ¼ºº°¸¸ È®ÀÎÇÒ Áö °í¸£¼¼¿ä(1. ³²¼º, 2. ¿©¼º, 3.¸ğµÎ): ";
+        cout << "ì–´ë–¤ ì„±ë³„ë§Œ í™•ì¸í•  ì§€ ê³ ë¥´ì„¸ìš”(1. ë‚¨ì„±, 2. ì—¬ì„±, 3.ëª¨ë‘): ";
         cin >> filteredSex;
         cin.clear();
         cin.ignore(256, '\n');
         if (filteredSex >= 1 && filteredSex <= 3) {
             break;
         } else {
-            cout << "Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù. ´Ù½ÃÀÔ·ÂÇÏ¼¼¿ä " << endl;
+            cout << "ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤. ë‹¤ì‹œì…ë ¥í•˜ì„¸ìš” " << endl;
         }
     }
 
     int ageQuot;
     while (true) {
         cout
-            << "¾î¶² ³ªÀÌ´ë¸¦ È®ÀÎÇÒ Áö °í¸£¼¼¿ä(1. 10´ë, 2. 20´ë, 3. 30´ë, 4. "
-               "40´ë, 5. ÀÌ¿Ü, 6. ¸ğµÎ)"
+            << "ì–´ë–¤ ë‚˜ì´ëŒ€ë¥¼ í™•ì¸í•  ì§€ ê³ ë¥´ì„¸ìš”(1. 10ëŒ€, 2. 20ëŒ€, 3. 30ëŒ€, 4. "
+               "40ëŒ€, 5. ì´ì™¸, 6. ëª¨ë‘)"
             << endl;
         cin >> ageQuot;
         cin.clear();
@@ -308,34 +311,34 @@ void MemberManager::printFilteredMember() {
         if (ageQuot >= 1 && ageQuot <= 6) {
             break;
         } else {
-            cout << "Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù. ´Ù½ÃÀÔ·ÂÇÏ¼¼¿ä " << endl;
+            cout << "ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤. ë‹¤ì‹œì…ë ¥í•˜ì„¸ìš” " << endl;
         }
     }
 
     int cnt = 0;
     for (auto it = members.begin(); it != members.end(); ++it) {
-        if (filteredSex == it->sex || filteredSex == 3) {
+        if (filteredSex == (*it)->sex->data || filteredSex == 3) {
             cnt++;
             if (ageQuot == 6) {
                 cout << *it << endl;
 
-            } else if (it->age / 10 == ageQuot) {
-                cout << *it << endl;
-            } else if (ageQuot == 5 && ((it->age / 10) >= ageQuot)) {
-                cout << *it << endl;
+            } else if ((*it)->age->data / 10 == ageQuot) {
+                cout << **it << endl;
+            } else if (ageQuot == 5 && (((*it)->age->data / 10) >= ageQuot)) {
+                cout << (**it) << endl;
             } else {
                 cnt--;
             }
         }
     }
-    cout << "ÃÑ " << cnt << "¸í ÀÔ´Ï´Ù." << endl;
+    cout << "ì´ " << cnt << "ëª… ì…ë‹ˆë‹¤." << endl;
 
     printGoMainMenu();
 }
 
-void MemberManager::printMember(list<Member>::iterator& it) {
+void MemberManager::printMember(list<Member*>::iterator& it) {
     if (it == members.end()) {
-        cout << "Á¸ÀçÇÏÁö ¾Ê´Â È¸¿øÀÔ´Ï´Ù." << endl;
+        cout << "ì¡´ì¬í•˜ì§€ ì•ŠëŠ” íšŒì›ì…ë‹ˆë‹¤." << endl;
     } else {
 
         cout << *it;
@@ -343,60 +346,41 @@ void MemberManager::printMember(list<Member>::iterator& it) {
 }
 
 void MemberManager::printWelcomMsg() {
-    cout << "¾È³çÇÏ¼¼¿ä È¸¿ø Á¤º¸ °ü¸® ½Ã½ºÅÛÀÔ´Ï´Ù!" << endl;
+    cout << "ì•ˆë…•í•˜ì„¸ìš” íšŒì› ì •ë³´ ê´€ë¦¬ ì‹œìŠ¤í…œì…ë‹ˆë‹¤!" << endl;
 };
 
 void MemberManager::printByeMsg() {
     system("cls");
-    cout << "ÀÌ¿ëÇØÁÖ¼Å¼­ °¨»çÇÕ´Ï´Ù!" << endl;
+    cout << "ì´ìš©í•´ì£¼ì…”ì„œ ê°ì‚¬í•©ë‹ˆë‹¤!" << endl;
 };
 
 void MemberManager::eraseMember() {
     if (curCount == 0) {
-        cout << "ÀÔ·ÂµÈ È¸¿ø Á¤º¸°¡ ¾ø½À´Ï´Ù." << endl;
+        cout << "ì…ë ¥ëœ íšŒì› ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤." << endl;
         printGoMainMenu();
         return;
     }
     string dName;
-    cout << "»èÁ¦ÇÒ ¸â¹öÀÇ ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä: ";
+    cout << "ì‚­ì œí•  ë©¤ë²„ì˜ ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”: ";
     cin >> dName;
 
     auto it = searchMemberByName(dName);
-    int  answer;
+
     if (it == members.end()) {
-        cout << "ÇØ´ç ÀÌ¸§ÀÇ ¸â¹ö°¡ ¾ø½À´Ï´Ù." << endl;
+        cout << "í•´ë‹¹ ì´ë¦„ì˜ ë©¤ë²„ê°€ ì—†ìŠµë‹ˆë‹¤." << endl;
 
     } else {
         members.erase(it);
         curCount--;
-        cout << "¼º°øÀûÀ¸·Î »èÁ¦µÇ¾ú½À´Ï´Ù. " << endl;
+        cout << "ì„±ê³µì ìœ¼ë¡œ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤. " << endl;
     }
 
     printGoMainMenu();
 }
 
-bool MemberManager::Member::isValid() {
-    bool valid = false;
-    // name °ËÁõÀº ³ªÁß¿¡
-
-    if (this->sex == Sex::MAN || this->sex == Sex::WOMAN) {
-        valid = true;
-    } else {
-        return false;
-    }
-
-    if (age > 0 && age < 120) {
-        valid = true;
-    } else {
-        return false;
-    }
-
-    return valid;
-}
-
 void MemberManager::printGoMainMenu() {
     uint32_t wait;
-    cout << endl << "¾Æ¹«Å°³ª ÀÔ·Â½Ã ¸ŞÀÎ ¸Ş´º·Î µ¹¾Æ°©´Ï´Ù." << endl;
+    cout << endl << "ì•„ë¬´í‚¤ë‚˜ ì…ë ¥ì‹œ ë©”ì¸ ë©”ë‰´ë¡œ ëŒì•„ê°‘ë‹ˆë‹¤." << endl;
 
     cin >> wait;
     cin.clear();
