@@ -3,6 +3,7 @@
 
 #include "tarray.h"
 #include "struct.h"
+#include <iostream>
 
 void additionalInfo();
 
@@ -12,15 +13,15 @@ void InputUserInfo()
 
 	User user;
 
-	printf("유저 정보 입력\n");
-	printf("이름을 입력하세요\n");
-	scanf_s("%s", user.name, 10);
+	cout<<"유저 정보 입력" << endl;
+	cout << "이름을 입력하세요" << endl;
+	cin >> user.name;
 
-	printf("성별을 입력하세요( 남자 : 1, 여자 2)\n");
-	scanf_s("%d", &user.Sex);
+	cout << "성별을 입력하세요( 남자 : 1, 여자 2)" << endl;
+	cin >> user.Sex;
 
-	printf("나이를 입력하세요\n");
-	scanf_s("%d", &user.Age);
+	cout << "나이를 입력하세요" << endl;
+	cin >> user.Age;
 
 	g_user.push_back(user);
 	additionalInfo();
@@ -33,10 +34,10 @@ void additionalInfo()
 
 	system("cls");
 
-	printf("추가로 정보를 입력 하시겠습니까?  \n");
-	printf("1.추가입력\n");
-	printf("2.메인화면\n");
-	scanf_s("%d", &Input);
+	cout << "추가로 정보를 입력 하시겠습니까?  " << endl;
+	cout << "1.추가입력" << endl;
+	cout << "2.메인화면" << endl;
+	cin >> Input;
 	if (1 == Input) { InputUserInfo(); }
 	else { return; }
 

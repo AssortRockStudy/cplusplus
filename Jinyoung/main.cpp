@@ -5,6 +5,7 @@
 
 #include "struct.h"
 #include <vector>
+#include <iostream>
 
 using namespace std;
 
@@ -42,13 +43,13 @@ int main()
 		system("cls");
 
 		// 기능 설명
-		printf("1. 회원 등록\n");
-		printf("2. 회원 전부 출력\n");
+		cout<<"1. 회원 등록"<<endl;
+		cout << "2. 회원 전부 출력" << endl;
 		//printf("3. 저장\n");
 		//printf("4. 불러오기\n");
-		printf("3. 프로그램 종료\n");
+		cout << "3. 프로그램 종료" << endl;
 
-		scanf_s("%d", &Input);
+		cin>>Input;
 
 		// 3번 입력 시 프로그램 종료
 		if (3 == Input)

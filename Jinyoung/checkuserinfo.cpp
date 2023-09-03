@@ -3,6 +3,7 @@
 
 #include <string>
 #include "struct.h"
+#include <iostream>
 
 
 // 특정 인덱스에 해당하는 유저정보 출력
@@ -11,8 +12,8 @@ void OutputUserInfo(vector<User>::iterator& _iter);
 void CheckUserInfo()
 {
 	system("cls");
-	printf("1. 전체 유저 정보 확인\n");
-	printf("2. 유저 이름 검색\n");
+	cout<<"1. 전체 유저 정보 확인"<<endl;
+	cout << "2. 유저 이름 검색" << endl;
 
 	/*int input = 0;
 	scanf_s("%d", &input);
@@ -55,7 +56,7 @@ void CheckUserInfo()
 
 	//	// 대기
 		int input = 0;
-		scanf_s("%d", &input);
+		cin>>input;
 	//}
 }
 
@@ -65,17 +66,16 @@ void OutputUserInfo(vector<User>::iterator& _iter)
 
 	//User user = g_user.pData[_Idx];
 
-	printf("이름 : %s\n", _iter->name);
-	printf("나이 : %d\n", _iter->Age);
+	cout << "이름 : "<< _iter->name<<endl;
+	cout << "나이 : "<< _iter->Age<<endl;
 
 	if (1 == _iter->Sex)
 	{
-		printf("성별 : 남자\n");
+		cout << "성별 : 남자" << endl;
 	}
 	else
 	{
-		printf("성별 : 여자\n");
+		cout << "성별 : 여자" << endl << endl;
 	}
 
-	printf("\n");
 }
