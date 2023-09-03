@@ -1,4 +1,4 @@
-#include <stdio.h>
+ï»¿#include <stdio.h>
 #include <stdlib.h>
 
 #include "tarray.h"
@@ -10,19 +10,19 @@ void InputUserInfo()
 {
 	system("cls");
 
-	User user = {};
+	User user;
 
-	printf("À¯Àú Á¤º¸ ÀÔ·Â\n");
-	printf("ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä\n");
+	printf("ìœ ì € ì •ë³´ ì…ë ¥\n");
+	printf("ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”\n");
 	scanf_s("%s", user.name, 10);
 
-	printf("¼ºº°À» ÀÔ·ÂÇÏ¼¼¿ä( ³²ÀÚ : 1, ¿©ÀÚ 2)\n");
+	printf("ì„±ë³„ì„ ì…ë ¥í•˜ì„¸ìš”( ë‚¨ì : 1, ì—¬ì 2)\n");
 	scanf_s("%d", &user.Sex);
 
-	printf("³ªÀÌ¸¦ ÀÔ·ÂÇÏ¼¼¿ä\n");
+	printf("ë‚˜ì´ë¥¼ ì…ë ¥í•˜ì„¸ìš”\n");
 	scanf_s("%d", &user.Age);
 
-	pushData<User>(&g_user, user);
+	g_user.push_back(user);
 	additionalInfo();
 }
 
@@ -33,9 +33,9 @@ void additionalInfo()
 
 	system("cls");
 
-	printf("Ãß°¡·Î Á¤º¸¸¦ ÀÔ·Â ÇÏ½Ã°Ú½À´Ï±î?  \n");
-	printf("1.Ãß°¡ÀÔ·Â\n");
-	printf("2.¸ŞÀÎÈ­¸é\n");
+	printf("ì¶”ê°€ë¡œ ì •ë³´ë¥¼ ì…ë ¥ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?  \n");
+	printf("1.ì¶”ê°€ì…ë ¥\n");
+	printf("2.ë©”ì¸í™”ë©´\n");
 	scanf_s("%d", &Input);
 	if (1 == Input) { InputUserInfo(); }
 	else { return; }

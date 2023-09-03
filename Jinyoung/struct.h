@@ -1,9 +1,12 @@
-#pragma once
+﻿#pragma once
 
-#include "TArray.h"
+#include <vector>
 
-struct User
+using namespace std;
+
+class User
 {
+public:
 	char			name[10];
 	int	Age;
 	unsigned char	Sex; // 1, 2
@@ -11,4 +14,4 @@ struct User
 };
 
 
-extern tArray<User> g_user;
+extern vector<User> g_user;

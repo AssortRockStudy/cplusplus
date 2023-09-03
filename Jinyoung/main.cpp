@@ -1,19 +1,23 @@
-#include <stdio.h>
+ï»¿#include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <string>
 
-#include "tarray.h"
 #include "struct.h"
+#include <vector>
 
-// User µ¿Àû ¹è¿­
-tArray<User> g_user = {};
+using namespace std;
 
 
-// µ¿Àû ÇÒ´ç
-// ·±Å¸ÀÓ Áß¿¡ ¸Ş¸ğ¸® ÇÒ´ç
-// Èü ¿µ¿ª
-// »ç¿ëÀÚ(ÇÁ·Î±×·¡¸Ó) °¡ Á÷Á¢ ¸Ş¸ğ¸®¸¦ °ü¸®ÇØ¾ßÇÔ
+
+// User ë™ì  ë°°ì—´
+vector<User> g_user;
+
+
+// ë™ì  í• ë‹¹
+// ëŸ°íƒ€ì„ ì¤‘ì— ë©”ëª¨ë¦¬ í• ë‹¹
+// í™ ì˜ì—­
+// ì‚¬ìš©ì(í”„ë¡œê·¸ë˜ë¨¸) ê°€ ì§ì ‘ ë©”ëª¨ë¦¬ë¥¼ ê´€ë¦¬í•´ì•¼í•¨
 
 void InputUserInfo();
 void CheckUserInfo();
@@ -28,25 +32,25 @@ int main()
 	int*** pppInt = nullptr;
 
 
-	initArray<User>(&g_user);
+	//initArray<User>(&g_user);
 
 	while (1)
 	{
 		int Input = 0;
 
-		// ÄÜ¼ÖÃ¢ Å¬¸®¾î
+		// ì½˜ì†”ì°½ í´ë¦¬ì–´
 		system("cls");
 
-		// ±â´É ¼³¸í
-		printf("1. È¸¿ø µî·Ï\n");
-		printf("2. È¸¿ø ÀüºÎ Ãâ·Â\n");
-		//printf("3. ÀúÀå\n");
-		//printf("4. ºÒ·¯¿À±â\n");
-		printf("3. ÇÁ·Î±×·¥ Á¾·á\n");
+		// ê¸°ëŠ¥ ì„¤ëª…
+		printf("1. íšŒì› ë“±ë¡\n");
+		printf("2. íšŒì› ì „ë¶€ ì¶œë ¥\n");
+		//printf("3. ì €ì¥\n");
+		//printf("4. ë¶ˆëŸ¬ì˜¤ê¸°\n");
+		printf("3. í”„ë¡œê·¸ë¨ ì¢…ë£Œ\n");
 
 		scanf_s("%d", &Input);
 
-		// 3¹ø ÀÔ·Â ½Ã ÇÁ·Î±×·¥ Á¾·á
+		// 3ë²ˆ ì…ë ¥ ì‹œ í”„ë¡œê·¸ë¨ ì¢…ë£Œ
 		if (3 == Input)
 		{
 			break;
@@ -71,7 +75,7 @@ int main()
 
 
 
-	delArray<User>(&g_user);
+	//delArray<User>(&g_user);
 
 	return 0;
 }

@@ -1,28 +1,31 @@
-#include <stdio.h>
+ï»¿#include <stdio.h>
 #include <stdlib.h>
 
 #include <string>
 #include "struct.h"
 
 
-// Æ¯Á¤ ÀÎµ¦½º¿¡ ÇØ´çÇÏ´Â À¯ÀúÁ¤º¸ Ãâ·Â
-void OutputUserInfo(int _Idx);
+// íŠ¹ì • ì¸ë±ìŠ¤ì— í•´ë‹¹í•˜ëŠ” ìœ ì €ì •ë³´ ì¶œë ¥
+void OutputUserInfo(vector<User>::iterator& _iter);
 
 void CheckUserInfo()
 {
 	system("cls");
-	printf("1. ÀüÃ¼ À¯Àú Á¤º¸ È®ÀÎ\n");
-	printf("2. À¯Àú ÀÌ¸§ °Ë»ö\n");
+	printf("1. ì „ì²´ ìœ ì € ì •ë³´ í™•ì¸\n");
+	printf("2. ìœ ì € ì´ë¦„ ê²€ìƒ‰\n");
 
 	/*int input = 0;
 	scanf_s("%d", &input);
 
 	if (1 == input)
 	{*/
-		// ÀÔ·ÂµÈ À¯Àú ¼ö ¸¸Å­ ¹İº¹ÇÑ´Ù.
-	for (int i = 0; i < g_user.iCurCount; ++i)
+		// ì…ë ¥ëœ ìœ ì € ìˆ˜ ë§Œí¼ ë°˜ë³µí•œë‹¤.
+
+	vector<User>::iterator iter;
+
+	for (iter=g_user.begin(); g_user.end() !=iter; ++iter)
 	{
-		OutputUserInfo(i);
+		OutputUserInfo(iter);
 	}
 
 	//	int input = 0;
@@ -30,46 +33,48 @@ void CheckUserInfo()
 	//}
 	//else if (2 == input)
 	//{
-	//	// °Ë»öÇÒ ÀÌ¸§À» ÀÔ·Â¹Ş´Â´Ù.
-	//	printf("Ã£À» ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä\n");
+	//	// ê²€ìƒ‰í•  ì´ë¦„ì„ ì…ë ¥ë°›ëŠ”ë‹¤.
+	//	printf("ì°¾ì„ ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”\n");
 	//	char inputname[10] = {};
 	//	scanf_s("%s", inputname, 10);
 
-	//	// ÀüÃ¼ À¯ÀúÁß¿¡ °Ë»ö ÀÔ·Â¹ŞÀº ÀÌ¸§¿¡ ÇØ´çÇÏ´Â À¯ÀúÀÇ ÀÎµ¦½º¸¦ Ã£´Â´Ù.	
+	//	// ì „ì²´ ìœ ì €ì¤‘ì— ê²€ìƒ‰ ì…ë ¥ë°›ì€ ì´ë¦„ì— í•´ë‹¹í•˜ëŠ” ìœ ì €ì˜ ì¸ë±ìŠ¤ë¥¼ ì°¾ëŠ”ë‹¤.	
 	//	int i = 0;
 	//	for (; i < g_user.iCurCount; ++i)
 	//	{
-	//		// ÀüÃ¼ À¯ÀúÀÇ ÀÌ¸§À» È®ÀÎÇÑ´Ù.
-	//		// ÀÔ·ÂµÈ ÀÌ¸§°ú À¯ÀúÀÇ ÀÌ¸§ÀÌ °°À¸¸é ÀÌ¶§ i °¡ Ã£Àº ÀÎµ¦½ºÀÌ´Ù.
+	//		// ì „ì²´ ìœ ì €ì˜ ì´ë¦„ì„ í™•ì¸í•œë‹¤.
+	//		// ì…ë ¥ëœ ì´ë¦„ê³¼ ìœ ì €ì˜ ì´ë¦„ì´ ê°™ìœ¼ë©´ ì´ë•Œ i ê°€ ì°¾ì€ ì¸ë±ìŠ¤ì´ë‹¤.
 	//		if (!strcmp(inputname, g_user.pData[i].name))
 	//		{
 	//			break;
 	//		}
 	//	}
 
-	//	// ÀÔ·ÂµÈ ÀÌ¸§°ú °°Àº À¯ÀúÀÇ ÀÎµ¦½º·Î, Á¤º¸¸¦ Ãâ·ÂÇÑ´Ù.
+	//	// ì…ë ¥ëœ ì´ë¦„ê³¼ ê°™ì€ ìœ ì €ì˜ ì¸ë±ìŠ¤ë¡œ, ì •ë³´ë¥¼ ì¶œë ¥í•œë‹¤.
 	//	OutputUserInfo(i);
 
-	//	// ´ë±â
+	//	// ëŒ€ê¸°
 		int input = 0;
 		scanf_s("%d", &input);
 	//}
 }
 
-void OutputUserInfo(int _Idx)
+void OutputUserInfo(vector<User>::iterator& _iter)
 {
-	User user = g_user.pData[_Idx];
+	
 
-	printf("ÀÌ¸§ : %s\n", user.name);
-	printf("³ªÀÌ : %d\n", user.Age);
+	//User user = g_user.pData[_Idx];
 
-	if (1 == user.Sex)
+	printf("ì´ë¦„ : %s\n", _iter->name);
+	printf("ë‚˜ì´ : %d\n", _iter->Age);
+
+	if (1 == _iter->Sex)
 	{
-		printf("¼ºº° : ³²ÀÚ\n");
+		printf("ì„±ë³„ : ë‚¨ì\n");
 	}
 	else
 	{
-		printf("¼ºº° : ¿©ÀÚ\n");
+		printf("ì„±ë³„ : ì—¬ì\n");
 	}
 
 	printf("\n");

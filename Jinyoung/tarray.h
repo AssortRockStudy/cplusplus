@@ -1,13 +1,13 @@
-#pragma once
+ï»¿#pragma once
 #pragma once
 
-//int Å¸ÀÔ µ¥ÀÌÅÍ¸¦ ÀúÀåÇÏ´Â °¡º¯¹è¿­
+//int íƒ€ì… ë°ì´í„°ë¥¼ ì €ì¥í•˜ëŠ” ê°€ë³€ë°°ì—´
 template <typename T>
 struct tArray
 {
-	T* pData;   //µ¥ÀÌÅÍ¸¦ ÀúÀåÇÏ´Â Èü ¸Ş¸ğ¸® ÁÖ¼Ò
-	int iCurCount;//ÇöÀç µ¥ÀÌÅÍ °³¼ö
-	int imaxCount; //ÃÖ´ë °¹¼ö 
+	T* pData;   //ë°ì´í„°ë¥¼ ì €ì¥í•˜ëŠ” í™ ë©”ëª¨ë¦¬ ì£¼ì†Œ
+	int iCurCount;//í˜„ì¬ ë°ì´í„° ê°œìˆ˜
+	int imaxCount; //ìµœëŒ€ ê°¯ìˆ˜ 
 };
 
 template <typename T>
@@ -21,17 +21,17 @@ void initArray(tArray<T>* pArr) {
 template <typename T>
 void pushData(tArray<T>* pArr, T data) {
 	if ((pArr->iCurCount) >= (pArr->imaxCount)) {
-		//1. ´õÅ« °ø°£À» Èü ¿µ¿ª¿¡ ÇÒ´ç
+		//1. ë”í° ê³µê°„ì„ í™ ì˜ì—­ì— í• ë‹¹
 		T* ntypep = (T*)malloc((sizeof(T) * (pArr->imaxCount * 2)));
-		//2. ±âÁ¸¿¡ °¡Áö°í ÀÖ´ø µ¥ÀÌÅÍ¸¦ ¿Å±ä´Ù.
+		//2. ê¸°ì¡´ì— ê°€ì§€ê³  ìˆë˜ ë°ì´í„°ë¥¼ ì˜®ê¸´ë‹¤.
 		for (int i = 0; i < pArr->imaxCount; ++i)
 		{
 			ntypep[i] = pArr->pData[i];
 		}
 		pArr->imaxCount *= 2;
-		//3. ±âÁ¸°ø°£À» ÇØÁ¦½ÃÅ²´Ù
+		//3. ê¸°ì¡´ê³µê°„ì„ í•´ì œì‹œí‚¨ë‹¤
 		free(pArr->pData);
-		//4. ±âÁ¸ °ø°£ ÁÖ¼Ò¸¦ »õ·Î¿î °ø°£ ÁÖ¼Ò·Î ¹Ù²Û´Ù.
+		//4. ê¸°ì¡´ ê³µê°„ ì£¼ì†Œë¥¼ ìƒˆë¡œìš´ ê³µê°„ ì£¼ì†Œë¡œ ë°”ê¾¼ë‹¤.
 		pArr->pData = ntypep;
 	}
 	pArr->pData[(pArr->iCurCount)++] = data;
