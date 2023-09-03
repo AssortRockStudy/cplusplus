@@ -22,6 +22,7 @@ vector<User> g_user;
 
 void InputUserInfo();
 void CheckUserInfo();
+void pushtestdata();
 void SaveUserInfo();
 void LoadUserInfo();
 
@@ -41,10 +42,12 @@ int main()
 
 		// 콘솔창 클리어
 		system("cls");
+		// 테스트 데이터 입력
+		pushtestdata();
 
 		// 기능 설명
 		cout<<"1. 회원 등록"<<endl;
-		cout << "2. 회원 전부 출력" << endl;
+		cout << "2. 회원 정보" << endl;
 		//printf("3. 저장\n");
 		//printf("4. 불러오기\n");
 		cout << "3. 프로그램 종료" << endl;
@@ -79,5 +82,30 @@ int main()
 	//delArray<User>(&g_user);
 
 	return 0;
+}
+
+
+
+void pushtestdata()
+{
+
+	User user;
+
+	user.name="aaa";
+	user.Sex=1;
+	user.Age=111;
+	g_user.push_back(user);
+
+	user.name = "bbb";
+	user.Sex = 2;
+	user.Age = 222;
+	g_user.push_back(user);
+
+	user.name = "ccc";
+	user.Sex = 2;
+	user.Age = 333;
+	g_user.push_back(user);
+
+
 }
 

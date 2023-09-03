@@ -1,13 +1,14 @@
 ﻿#pragma once
 
 #include <vector>
+#include <string>
 
 using namespace std;
 
 class User
 {
 public:
-	char			name[10];
+	string			name;
 	int	Age;
 	unsigned char	Sex; // 1, 2
 	unsigned int	ID;
