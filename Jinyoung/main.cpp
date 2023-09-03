@@ -33,17 +33,17 @@ int main()
 	int** ppInt = nullptr;
 	int*** pppInt = nullptr;
 
+	// 테스트 데이터 입력
+	pushtestdata();
 
 	//initArray<User>(&g_user);
 
 	while (1)
 	{
-		int Input = 0;
+		char Input = 0;
 
 		// 콘솔창 클리어
 		system("cls");
-		// 테스트 데이터 입력
-		pushtestdata();
 
 		// 기능 설명
 		cout<<"1. 회원 등록"<<endl;
@@ -52,18 +52,18 @@ int main()
 		//printf("4. 불러오기\n");
 		cout << "3. 프로그램 종료" << endl;
 
-		cin>>Input;
+		cin.get(Input);
 
 		// 3번 입력 시 프로그램 종료
-		if (3 == Input)
+		if ('3' == Input)
 		{
 			break;
 		}
-		else if (1 == Input)
+		else if ('1' == Input)
 		{
 			InputUserInfo();
 		}
-		else if (2 == Input)
+		else if ('2' == Input)
 		{
 			CheckUserInfo();
 		}
@@ -91,20 +91,27 @@ void pushtestdata()
 
 	User user;
 
-	user.name="aaa";
-	user.Sex=1;
-	user.Age=111;
+
+	user.name = "ccc";
+	user.Sex = 2;
+	user.Age = 33;
+	user.ID = 1;
+	g_user.push_back(user);
+
+	user.name = "aaa";
+	user.Sex = 1;
+	user.Age = 11;
+	user.ID = 2;
 	g_user.push_back(user);
 
 	user.name = "bbb";
 	user.Sex = 2;
-	user.Age = 222;
+	user.Age = 22;
+	user.ID = 3;
 	g_user.push_back(user);
 
-	user.name = "ccc";
-	user.Sex = 2;
-	user.Age = 333;
-	g_user.push_back(user);
+
+
 
 
 }

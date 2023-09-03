@@ -4,8 +4,10 @@
 #include "tarray.h"
 #include "struct.h"
 #include <iostream>
+#include <algorithm> 
 
 void additionalInfo();
+bool cmpid(User& _A, User& _B);
 
 void InputUserInfo()
 {
@@ -22,6 +24,25 @@ void InputUserInfo()
 
 	cout << "나이를 입력하세요" << endl;
 	cin >> user.Age;
+
+	vector<User>::iterator iter=g_user.begin();
+	for (iter; g_user.end()!=iter; ++iter)
+	{
+		if (user == (*iter)) { 
+			break;
+		}
+	}
+
+	if (g_user.end() != iter)
+	{
+		cout << "중복된 회원입니다." << endl;
+		system("pause");
+		return;
+	}
+
+
+	iter= max_element(g_user.begin(), g_user.end(), cmpid);
+	user.ID = (iter->ID) + 1;
 
 	g_user.push_back(user);
 	additionalInfo();
