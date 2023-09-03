@@ -4,10 +4,24 @@
     <Filter Include="1week">
       <UniqueIdentifier>{ba0e17bc-1c86-4416-8e5a-401a7ca62008}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2week">
+      <UniqueIdentifier>{ff9a6955-1903-4b80-bc3d-cb57e9a622d3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>1week</Filter>
     </ClCompile>
+    <ClCompile Include="main_2.cpp">
+      <Filter>2week</Filter>
+    </ClCompile>
+    <ClCompile Include="app.cpp">
+      <Filter>2week</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="app.h">
+      <Filter>2week</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
