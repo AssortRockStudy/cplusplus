@@ -129,9 +129,8 @@
   <ItemGroup>
     <ClCompile Include="checkuserinfo.cpp" />
     <ClCompile Include="inputuserinfo.cpp" />
-    <ClCompile Include="newanything.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="SaveLoad.cpp" />
-    <ClCompile Include="tarray.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />

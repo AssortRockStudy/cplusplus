@@ -1,58 +1,58 @@
-#include <string>
+ï»¿#include <string>
 #include "struct.h"
 #include <Windows.h>
 
 
-void SaveUserInfo()
-{
-	wchar_t szDir[256] = {};
-	GetCurrentDirectory(256,szDir);
-	wcscat_s(szDir, 256, L"\\UserInfo.txt");
+//void SaveUserInfo()
+//{
+//	wchar_t szDir[256] = {};
+//	GetCurrentDirectory(256,szDir);
+//	wcscat_s(szDir, 256, L"\\UserInfo.txt");
+//
+//	FILE* pFile = nullptr;
+//	//íŒŒì¼í¬ì¸í„°ë¥¼ ì±„ì›Œì¤˜ì•¼í•˜ê¸°ë•Œë¬¸ì— íŒŒì¼í¬ì¸í„°í¬ì¸í„°ë¥¼ ì¤€ë‹¤
+//	_wfopen_s(&pFile, szDir, L"wb");
+//
+//	//ì €ì¥ì‹œí‚¬ ìœ ì €ì˜ ìˆ˜
+//	fwrite(&(g_user.iCurCount), 4, 1, pFile);
+//
+//	for (int i = 0; i < g_user.iCurCount; ++i)
+//	{
+//		//[i]ëŠ” +iì— *ì„ë¶™ì¸ê²ƒ í¬ì¸í„°ë¡œ ì „ë‹¬í•´ì•¼í•œë‹¤
+//		fwrite(g_user.pData+i, sizeof(User), 1, pFile);
+//	}
+//
+//	fclose(pFile);
+//}
 
-	FILE* pFile = nullptr;
-	//ÆÄÀÏÆ÷ÀÎÅÍ¸¦ Ã¤¿öÁà¾ßÇÏ±â¶§¹®¿¡ ÆÄÀÏÆ÷ÀÎÅÍÆ÷ÀÎÅÍ¸¦ ÁØ´Ù
-	_wfopen_s(&pFile, szDir, L"wb");
-
-	//ÀúÀå½ÃÅ³ À¯ÀúÀÇ ¼ö
-	fwrite(&(g_user.iCurCount), 4, 1, pFile);
-
-	for (int i = 0; i < g_user.iCurCount; ++i)
-	{
-		//[i]´Â +i¿¡ *À»ºÙÀÎ°Í Æ÷ÀÎÅÍ·Î Àü´ŞÇØ¾ßÇÑ´Ù
-		fwrite(g_user.pData+i, sizeof(User), 1, pFile);
-	}
-
-	fclose(pFile);
-}
-
-void LoadUserInfo()
-{
-	wchar_t szDir[256] = {};
-	GetCurrentDirectory(256, szDir);
-	wcscat_s(szDir, 256, L"\\UserInfo.txt");
-
-	FILE* pFile = nullptr;
-	errno_t err=_wfopen_s(&pFile, szDir, L"rb");
-
-	//UserInfo.txt ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾Ê´Â °æ¿ì
-	//ÀĞ±â ¸ğµå´Â ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾ÊÀ¸¸é fopen  ÀÌ ½ÇÆĞÇÑ´Ù.
-	if (nullptr == pFile)
-	{
-		err;
-		return;
-	}
-	int iCount = 0;
-	fread(&iCount,sizeof(int),1,pFile);
-
-	for(int i=0;i<iCount;++i)
-	{
-		User user = {};
-		fread(&user, sizeof(user), 1, pFile);
-		pushData(&g_user, user);
-	}
-	fclose(pFile);
-
-	
-
-
-}
+//void LoadUserInfo()
+//{
+//	wchar_t szDir[256] = {};
+//	GetCurrentDirectory(256, szDir);
+//	wcscat_s(szDir, 256, L"\\UserInfo.txt");
+//
+//	FILE* pFile = nullptr;
+//	errno_t err=_wfopen_s(&pFile, szDir, L"rb");
+//
+//	//UserInfo.txt íŒŒì¼ì´ ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ê²½ìš°
+//	//ì½ê¸° ëª¨ë“œëŠ” íŒŒì¼ì´ ì¡´ì¬í•˜ì§€ ì•Šìœ¼ë©´ fopen  ì´ ì‹¤íŒ¨í•œë‹¤.
+//	if (nullptr == pFile)
+//	{
+//		err;
+//		return;
+//	}
+//	int iCount = 0;
+//	fread(&iCount,sizeof(int),1,pFile);
+//
+//	for(int i=0;i<iCount;++i)
+//	{
+//		User user = {};
+//		fread(&user, sizeof(user), 1, pFile);
+//		pushData(&g_user, user);
+//	}
+//	fclose(pFile);
+//
+//	
+//
+//
+//}

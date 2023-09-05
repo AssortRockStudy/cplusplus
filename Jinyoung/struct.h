@@ -1,14 +1,30 @@
-#pragma once
+﻿#pragma once
 
-#include "TArray.h"
+#include <vector>
+#include <string>
 
-struct User
+using namespace std;
+
+class User
 {
-	char			name[10];
+public:
+	string			name;
 	int	Age;
 	unsigned char	Sex; // 1, 2
 	unsigned int	ID;
+	unsigned int	Group;
+
+	bool operator == (const User& _other) 
+	{
+		return name == _other.name &&
+			Age == _other.Age &&
+			Sex == _other.Sex &&
+			Group == _other.Group;
+	}
+
 };
 
+ 
 
-extern tArray<User> g_user;
+
+extern vector<User> g_user;

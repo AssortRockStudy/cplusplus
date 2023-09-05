@@ -1,28 +1,50 @@
-#include <stdio.h>
+ï»¿#include <stdio.h>
 #include <stdlib.h>
 
 #include "tarray.h"
 #include "struct.h"
+#include <iostream>
+#include <algorithm> 
 
 void additionalInfo();
+bool cmpid(User& _A, User& _B);
 
 void InputUserInfo()
 {
 	system("cls");
 
-	User user = {};
+	User user;
 
-	printf("À¯Àú Á¤º¸ ÀÔ·Â\n");
-	printf("ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä\n");
-	scanf_s("%s", user.name, 10);
+	cout<<"ìœ ì € ì •ë³´ ìž…ë ¥" << endl;
+	cout << "ì´ë¦„ì„ ìž…ë ¥í•˜ì„¸ìš”" << endl;
+	cin >> user.name;
 
-	printf("¼ºº°À» ÀÔ·ÂÇÏ¼¼¿ä( ³²ÀÚ : 1, ¿©ÀÚ 2)\n");
-	scanf_s("%d", &user.Sex);
+	cout << "ì„±ë³„ì„ ìž…ë ¥í•˜ì„¸ìš”( ë‚¨ìž : 1, ì—¬ìž 2)" << endl;
+	cin >> user.Sex;
 
-	printf("³ªÀÌ¸¦ ÀÔ·ÂÇÏ¼¼¿ä\n");
-	scanf_s("%d", &user.Age);
+	cout << "ë‚˜ì´ë¥¼ ìž…ë ¥í•˜ì„¸ìš”" << endl;
+	cin >> user.Age;
 
-	pushData<User>(&g_user, user);
+	vector<User>::iterator iter=g_user.begin();
+	for (iter; g_user.end()!=iter; ++iter)
+	{
+		if (user == (*iter)) { 
+			break;
+		}
+	}
+
+	if (g_user.end() != iter)
+	{
+		cout << "ì¤‘ë³µëœ íšŒì›ìž…ë‹ˆë‹¤." << endl;
+		system("pause");
+		return;
+	}
+
+
+	iter= max_element(g_user.begin(), g_user.end(), cmpid);
+	user.ID = (iter->ID) + 1;
+
+	g_user.push_back(user);
 	additionalInfo();
 }
 
@@ -33,10 +55,10 @@ void additionalInfo()
 
 	system("cls");
 
-	printf("Ãß°¡·Î Á¤º¸¸¦ ÀÔ·Â ÇÏ½Ã°Ú½À´Ï±î?  \n");
-	printf("1.Ãß°¡ÀÔ·Â\n");
-	printf("2.¸ÞÀÎÈ­¸é\n");
-	scanf_s("%d", &Input);
+	cout << "ì¶”ê°€ë¡œ ì •ë³´ë¥¼ ìž…ë ¥ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?  " << endl;
+	cout << "1.ì¶”ê°€ìž…ë ¥" << endl;
+	cout << "2.ë©”ì¸í™”ë©´" << endl;
+	cin >> Input;
 	if (1 == Input) { InputUserInfo(); }
 	else { return; }
 
