@@ -127,10 +127,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="User.cpp" />
+    <ClCompile Include="UserFunc.cpp" />
     <ClCompile Include="UserInfo_MAIN.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="UserInfo_PsudoCode.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="User.h" />
+    <ClInclude Include="UserFunc.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
