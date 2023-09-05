@@ -90,9 +90,12 @@ void UserInfoAdmin::AddUserInfo()
 
 void UserInfoAdmin::PrintUserInfo(vector<UserInfo*>::iterator _user)
 {
-	if (nullptr == *_user || _user == users.end())
+	
+	assert(*_user);
+	if (_user == users.end()) 
 	{
-		assert(nullptr);
+		cout << " 찾으신 회원은 없는 회원입니다.";
+		return;
 	}
 
 	cout << EQUAL_PRINT << endl;
@@ -138,26 +141,15 @@ void UserInfoAdmin::SearchUserName()
 	cin >> inputName;
 	cin.clear();
 	cin.ignore(100, '\n');
-	
-	//for (int i = 0; i < users.size(); ++i)
-	//{
-	//	if (users[i]->name == inputName)
-	//	{
-	//		PrintUserInfo(i);
-	//		AlwaysLast();
-	//		return;
-	//	}
-	//}
 
-	for (auto user = users.begin(); user != users.end(); ++user)
+	auto user = users.begin();
+	for (; user != users.end(); ++user)
 	{
 		if (inputName == (*user)->name)
 		{
 			PrintUserInfo(user);
-			AlwaysLast();
-			return;
+			break;
 		}
 	}
-	cout << " 찾으신 회원은 없는 회원입니다.";
 	AlwaysLast();
 }
