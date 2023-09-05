@@ -9,10 +9,17 @@ private:
 public:
 	void StartProgram();
 private:
+	enum menu
+	{
+		None, AddUser, PrintAllUser, SearchUser, Exit
+	};
 	bool Selecting();
 	void AddUserInfo();
-	void PrintUserInfo();
+	void PrintUserInfo(int _idx);
+	void PrintAllUserInfo();
 	void AlwaysLast();
+	void SearchUserName();
+	//void CommonSearch();
 };
 
 
