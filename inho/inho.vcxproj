@@ -128,9 +128,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MemberAttribute.cpp" />
     <ClCompile Include="memberManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MemberAttribute.h" />
     <ClInclude Include="memberManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

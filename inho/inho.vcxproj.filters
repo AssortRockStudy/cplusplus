@@ -10,9 +10,15 @@
     <ClCompile Include="memberManager.cpp">
       <Filter>MemberManager</Filter>
     </ClCompile>
+    <ClCompile Include="MemberAttribute.cpp">
+      <Filter>MemberManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="memberManager.h">
+      <Filter>MemberManager</Filter>
+    </ClInclude>
+    <ClInclude Include="MemberAttribute.h">
       <Filter>MemberManager</Filter>
     </ClInclude>
   </ItemGroup>

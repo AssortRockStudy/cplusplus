@@ -1,4 +1,4 @@
-#include "memberManager.h"
+﻿#include "memberManager.h"
 
 int main() {
     MemberManager mm;
