@@ -20,7 +20,8 @@ void UserInfoAdmin::StartProgram()
 		cout << " 1. 회원 정보 등록" << endl;
 		cout << " 2. 모든 회원 정보 조회" << endl;
 		cout << " 3. 회원 정보 검색" << endl;
-		cout << " 4. 끝내기" << endl;
+		cout << " 4. 회원 정보 수정" << endl;
+		cout << " 5. 끝내기" << endl;
 		cout << EQUAL_PRINT << endl;
 		exitProgram = Selecting();
 		//	system("cls");
@@ -45,6 +46,9 @@ bool UserInfoAdmin::Selecting()
 		break;
 	case SearchUser:
 		SearchUserName();
+		break;
+	case ChangeUser:
+		ChangeUserInfo();
 		break;
 	case Exit:
 		return true;
@@ -127,7 +131,7 @@ void UserInfoAdmin::AlwaysLast()
 	system("cls");
 }
 
-void UserInfoAdmin::SearchUserName()
+void UserInfoAdmin:: SearchUserName()
 {
 	system("cls");
 	if (!users.size())
@@ -137,6 +141,12 @@ void UserInfoAdmin::SearchUserName()
 		return;
 	}
 	cout << " 찾을 회원의 이름을 입력해주십시오. : ";
+	SearchForName();
+	AlwaysLast();
+}
+
+vector<UserInfo*>::iterator  UserInfoAdmin::SearchForName()
+{
 	string inputName;
 	cin >> inputName;
 	cin.clear();
@@ -148,8 +158,46 @@ void UserInfoAdmin::SearchUserName()
 		if (inputName == (*user)->name)
 		{
 			PrintUserInfo(user);
-			break;
+
+			return user;
 		}
 	}
-	AlwaysLast();
+	return users.end();
+}
+
+void UserInfoAdmin::ChangeUserInfo()
+{
+	cout << " 회원 정보를 변경할 회원의 이름을 입력하십시오 : ";
+	auto ChangeUser = SearchForName();
+	if (ChangeUser == users.end())
+	{
+		cout << " 없는 회원입니다.  기능 선택 화면으로 넘어갑니다." << endl;
+		AlwaysLast();
+		return;
+	}
+	//PrintUserInfo(ChangeUser);
+	
+	cout << " 어떤 회원 정보를 변경하시겠습니까 ? " << endl << " 1 . 이름" << endl << " 2. 성별" << endl << " 3. 나이 " << endl << " 숫자 입력 : ";
+	int changeMem;
+	cin >> changeMem;
+	switch (changeMem)
+	{
+		// 여기서부터 구현 다시.
+	case 1:
+		// 이름 변경
+		cout << " 변경할 이름을 입력하십시오. : ";
+		break;
+	case 2:
+		// 성별 변경
+		cout << " 변경할 성별을 입력하십시오. : ";
+		break;
+	case 3:
+		// 나이 변경
+		cout << " 변경할 나이를 입력하십시오. : ";
+		break;
+	default:
+		cout << "잘못된 입력입니다.  기능 선택 화면으로 넘어갑니다." << endl;
+		break;
+
+	}
 }

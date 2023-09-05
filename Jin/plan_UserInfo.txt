@@ -26,32 +26,36 @@
 0) 찾을 회원의 이름 입력받음 cin
 	void CommonSearch() 함수 호출
 
-			// ) void CommonSearch() 는 회원을 찾되, 이름, 성별, 나이대에 상관없이 통용될 것.
-
-) 회원 찾기 !! 
+0) 회원 찾기 !! 
 	입력받은 회원의 이름과 원래 들어있던 회원들의 이름들을 비교
 		일치하는 이름이 있는 경우, 그 회원의 정보를 출력.
 		일치하는 이름이 없는 경우, 없다고 출력.
 
 			모든 회원을 출력받았던 PrintUserInfo()를 한명씩 출력하도록 변경.
 
-) GoMain!!!!!!
+0) GoMain!!!!!!
 
 --------------------------------------------------------------	
 
 회원 정보 수정
 
+0) ENUM 요소 추가
+0) StartProgram 함수 출력부 변경
+0) Selecting 함수 switch case 조건 변경
 
-void ChangeUserInfo();
+
+0) void ChangeUserInfo(); 선언 생성
 	누구를 변경할건지 질문
-	SearchUserName() 호출 -> 리턴값을 iterator로 변경.
+	//SearchUserName() 호출 -> 리턴값을 iterator로 변경.
+	0) SearchForName() 생성 --> 역할 : 이름으로 iter 찾음, 그것을 반환.
+	SearchUserName() 리턴 void 그대로.
 	만약 iterator가 제대로 회원을 못 찾으면, 함수 리턴.
 (찾으면)	
-	어떤 요소를 변경할건지 질문
-	cin input 받음.
+	0) 어떤 요소를 변경할건지 질문
+	0) cin input 받음.
 
-	switch case(input).
-	case 이름 | 성별 | 나이
+	0) switch case(input).
+	0) case 이름 | 성별 | 나이
 			요소를 어떻게 변경할건지 질문
 			cin input2 받음.
 			변경유저-> 이름 | 성별 | 나이 = input2

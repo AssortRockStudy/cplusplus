@@ -11,7 +11,7 @@ public:
 private:
 	enum menu
 	{
-		None, AddUser, PrintAllUser, SearchUser, Exit
+		None, AddUser, PrintAllUser, SearchUser, ChangeUser, Exit
 	};
 	bool Selecting();
 	void AddUserInfo();
@@ -19,6 +19,8 @@ private:
 	void PrintAllUserInfo();
 	void AlwaysLast();
 	void SearchUserName();
+	void ChangeUserInfo();
+	vector<UserInfo*>::iterator  SearchForName();
 	//void CommonSearch();
 };
 
