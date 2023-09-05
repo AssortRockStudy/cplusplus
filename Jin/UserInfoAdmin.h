@@ -15,7 +15,7 @@ private:
 	};
 	bool Selecting();
 	void AddUserInfo();
-	void PrintUserInfo(int _idx);
+	void PrintUserInfo(vector<UserInfo*>::iterator _user);
 	void PrintAllUserInfo();
 	void AlwaysLast();
 	void SearchUserName();

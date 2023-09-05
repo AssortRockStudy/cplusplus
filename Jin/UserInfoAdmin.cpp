@@ -2,6 +2,7 @@
 #include "UserInfo.h"
 
 #include <iostream>
+#include <cassert>
 #define EQUAL_PRINT "======================"
 
 using std::cout;
@@ -87,12 +88,18 @@ void UserInfoAdmin::AddUserInfo()
 
 }
 
-void UserInfoAdmin::PrintUserInfo(int _idx)
+void UserInfoAdmin::PrintUserInfo(vector<UserInfo*>::iterator _user)
 {
+	if (nullptr == *_user || _user == users.end())
+	{
+		assert(nullptr);
+	}
+
 	cout << EQUAL_PRINT << endl;
-	cout << " 회원 이름 : " << users[_idx]->name << endl;
-	cout << " 회원 나이 : " << users[_idx]->age << endl;
-	if (1 == users[_idx]->sex)
+	cout << " 회원 이름 : " << (*_user)->name << endl;
+	cout << " 회원 나이 : " << (*_user)->age << endl;
+
+	if (1 == (*_user)->sex)
 		cout << " 회원 성별 : 남성" << endl;
 	else
 		cout << " 회원 성별 : 여성" << endl;
@@ -103,8 +110,10 @@ void UserInfoAdmin::PrintAllUserInfo()
 	system("cls");
 	cout << " 모든 회원 정보를 출력합니다. " << endl;
 
-	for (int i = 0; i < users.size(); ++i)
-		PrintUserInfo(i);
+	for (auto user = users.begin();user != users.end();++user) 
+	{
+		PrintUserInfo(user);
+	}
 
 	AlwaysLast();
 }
@@ -120,7 +129,7 @@ void UserInfoAdmin::SearchUserName()
 	system("cls");
 	if (!users.size())
 	{
-		cout << " 저장된 회원이 없습니다. 회원 등록을 해주십시오.";
+		cout << " 저장된 회원이 없습니다. 회원 등록을 해주십시오." << endl;
 		AlwaysLast();
 		return;
 	}
@@ -130,11 +139,21 @@ void UserInfoAdmin::SearchUserName()
 	cin.clear();
 	cin.ignore(100, '\n');
 	
-	for (int i = 0; i < users.size(); ++i)
+	//for (int i = 0; i < users.size(); ++i)
+	//{
+	//	if (users[i]->name == inputName)
+	//	{
+	//		PrintUserInfo(i);
+	//		AlwaysLast();
+	//		return;
+	//	}
+	//}
+
+	for (auto user = users.begin(); user != users.end(); ++user)
 	{
-		if (users[i]->name == inputName)
+		if (inputName == (*user)->name)
 		{
-			PrintUserInfo(i);
+			PrintUserInfo(user);
 			AlwaysLast();
 			return;
 		}
