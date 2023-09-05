@@ -36,4 +36,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="plan_UserInfo.txt">
+      <Filter>UserInfoSystem</Filter>
+    </Text>
+  </ItemGroup>
 </Project>
