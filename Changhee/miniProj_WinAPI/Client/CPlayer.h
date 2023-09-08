@@ -4,7 +4,9 @@ class CPlayer :
     public CObj
 {
 private:
+    Vec2    m_vDir;
     float   m_fSpeed;
+
 
 
 public:
