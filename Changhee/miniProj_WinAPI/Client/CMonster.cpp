@@ -6,6 +6,8 @@
 
 CMonster::CMonster()
 	: m_fSpeed(100.f)
+	, m_fAcc(0.f)
+	, m_iDir(1)
 {
 }
 
@@ -19,25 +21,15 @@ void CMonster::tick(float _DT)
 {
 	Vec2 vPos = GetPos();
 
-	if (KEY_PRESSED(KEY::W))
-	{
-		vPos.y += m_fSpeed * _DT;
-	}
+	m_fAcc += _DT;
 
-	if (KEY_PRESSED(KEY::S))
+	if (m_fAcc > 2.f)
 	{
-		vPos.y -= m_fSpeed * _DT;
+		m_iDir *= -1;
+		m_fAcc = 0.f;
 	}
-
-	if (KEY_PRESSED(KEY::A))
-	{
-		vPos.x += m_fSpeed * _DT;
-	}
-
-	if (KEY_PRESSED(KEY::D))
-	{
-		vPos.x -= m_fSpeed * _DT;
-	}
+	
+	vPos.x += m_iDir * m_fSpeed * _DT;
 
 	SetPos(vPos);
 
@@ -46,6 +38,7 @@ void CMonster::tick(float _DT)
 void CMonster::render(HDC _dc)
 {
 	CPalette RedBrush(_dc, BRUSH_TYPE::RED);
+	CPalette RedPen(_dc, PEN_TYPE::RED);
 
 	Vec2 vPos = GetPos();
 	Vec2 vScale = GetScale();

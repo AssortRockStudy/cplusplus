@@ -5,6 +5,8 @@ class CMonster :
 {
 private:
     float       m_fSpeed;
+    float       m_fAcc;
+    int         m_iDir;
 
 private:
     virtual void tick(float _DT) override;
