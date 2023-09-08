@@ -9,6 +9,8 @@
 // юс╫ц
 #include "CPlayer.h"
 #include "CMonster.h"
+#include "CBoss.h"
+
 
 CLevelMgr::CLevelMgr()
 	: m_pCurLevel(nullptr)
@@ -40,6 +42,12 @@ void CLevelMgr::init()
 	pMonster2->SetPos(Vec2(300.f, 100.f));
 	pMonster2->SetScale(Vec2(50.f, 50.f));
 	m_pCurLevel->AddObject(pMonster2);
+
+	CBoss* pBoss = new CBoss;
+	pBoss->SetPos(Vec2(800.f, 100.f));
+	pBoss->SetScale(Vec2(50.f, 50.f));
+	m_pCurLevel->AddObject(pBoss);
+
 
 }
 

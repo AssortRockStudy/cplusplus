@@ -103,6 +103,7 @@
     <ClInclude Include="CProjectile.h">
       <Filter>Game\04. Object\Projectile</Filter>
     </ClInclude>
+    <ClInclude Include="CBoss.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -154,5 +155,6 @@
     <ClCompile Include="CProjectile.cpp">
       <Filter>Game\04. Object\Projectile</Filter>
     </ClCompile>
+    <ClCompile Include="CBoss.cpp" />
   </ItemGroup>
 </Project>
