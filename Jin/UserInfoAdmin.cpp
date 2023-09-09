@@ -16,7 +16,7 @@ void UserInfoAdmin::StartProgram()
 	bool exitProgram = false; 
 	while (!exitProgram)
 	{
-		cout <<EQUAL_PRINT << endl;
+		cout << endl << EQUAL_PRINT << endl;
 		cout << " 1. 회원 정보 등록" << endl;
 		cout << " 2. 모든 회원 정보 조회" << endl;
 		cout << " 3. 회원 정보 검색" << endl;
@@ -48,7 +48,10 @@ bool UserInfoAdmin::Selecting()
 		SearchUserName();
 		break;
 	case ChangeUser:
+	{
 		ChangeUserInfo();
+		cout << endl;
+	}
 		break;
 	case Exit:
 		return true;
@@ -182,22 +185,38 @@ void UserInfoAdmin::ChangeUserInfo()
 	cin >> changeMem;
 	switch (changeMem)
 	{
-		// 여기서부터 구현 다시.
 	case 1:
-		// 이름 변경
+	{
 		cout << " 변경할 이름을 입력하십시오. : ";
+		string changeName;
+		cin >> changeName;
+		(*ChangeUser)->name = changeName;
 		break;
+	}
 	case 2:
-		// 성별 변경
-		cout << " 변경할 성별을 입력하십시오. : ";
+	{
+		cout << " 성별이 변경됩니다. ";
+		if (1 == ((*ChangeUser)->sex))
+		{
+			(*ChangeUser)->sex = 2;
+		}
+		else {	(*ChangeUser)->sex = 1; }
 		break;
+	}
 	case 3:
-		// 나이 변경
+	{
 		cout << " 변경할 나이를 입력하십시오. : ";
+		int changeAge;
+		cin >> changeAge;
+		(*ChangeUser)->age = changeAge;
 		break;
+	}
 	default:
+	{
 		cout << "잘못된 입력입니다.  기능 선택 화면으로 넘어갑니다." << endl;
 		break;
+	}
 
 	}
+	PrintUserInfo(ChangeUser);
 }
