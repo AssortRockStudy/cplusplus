@@ -3,6 +3,9 @@
 
 #include <iostream>
 #include <cassert>
+#include <string.h>
+#include <atlstr.h> 
+#include <algorithm>
 #define EQUAL_PRINT "======================"
 
 using std::cout;
@@ -118,13 +121,52 @@ void UserInfoAdmin::PrintUserInfo(vector<UserInfo*>::iterator _user)
 void UserInfoAdmin::PrintAllUserInfo()
 {
 	system("cls");
-	cout << " 모든 회원 정보를 출력합니다. " << endl;
+	cout << " ( 1. 오름차순, 2. 내림차순 )으로 모든 회원 정보를 출력합니다. 숫자 선택 :  " << endl;
+	int sortNum;
+	cin >> sortNum;
 
-	for (auto user = users.begin();user != users.end();++user) 
+
+	// 구조 변경.. 해야 함.. 밥먹고..
+	// 포문 빼내고 strcpy 할 때 터지는 거 잡기.
+	if (1 == sortNum) // 오름차순
 	{
-		PrintUserInfo(user);
+		for (auto user = users.begin();user != users.end();++user)
+		{
+			char s1[100];
+			strcpy_s(s1, 10,((*user)->name).c_str());
+			char s2[100];
+			strcpy_s(s2, 10,((*(user+1))->name).c_str());
+
+			int returnStrcmp = strcmp(s1, s2);
+			
+			if (0 < returnStrcmp)
+			{
+				string sTmp = (*user)->name;
+				(*user)->name = (*(user + 1))->name;
+				(*(user + 1))->name = sTmp;
+			}
+		}
+		for (auto user = users.begin();user != users.end();++user)
+		{
+			PrintUserInfo(user);
+		}
 	}
 
+	else if (2 == sortNum) // 내림차순
+	{
+		reverse(users.begin(), users.end());
+
+		for (auto user = users.begin();user != users.end();++user)
+		{
+			PrintUserInfo(user);
+		}
+	}
+
+	else
+	{
+		cout << " 잘못된 입력입니다. 초기화면으로 돌아갑니다. " << endl;
+
+	}
 	AlwaysLast();
 }
 
