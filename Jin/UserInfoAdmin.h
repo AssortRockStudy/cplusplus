@@ -11,14 +11,14 @@ public:
 private:
 	enum menu
 	{
-		None, AddUser, PrintAllUser, SearchUser, ChangeUser, Exit
+		None, AddUser, PrintAllUser, SearchUserInfo, ChangeUser, Exit
 	};
 	bool Selecting();
 	void AddUserInfo();
 	void PrintUserInfo(vector<UserInfo*>::iterator _user);
 	void PrintAllUserInfo();
 	void AlwaysLast();
-	void SearchUserName();
+	void SearchUser();
 	void ChangeUserInfo();
 	vector<UserInfo*>::iterator  SearchForName();
 	//void CommonSearch();

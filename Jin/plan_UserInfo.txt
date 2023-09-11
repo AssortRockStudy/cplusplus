@@ -99,3 +99,33 @@
 
 		성별에 따라, 나이대(10대, 20대 등)에 따라 필터링해서 출력
 
+		) 필터링 해서 출력할 함수를 하나 만들 것.
+		) 메인화면에서 선택할 선택지 출력
+		-> 위와 동일......
+		) switch case 조건 추가
+	
+		) cout 검색 필터링 1. 이름, 2. 성별, 3. 나이
+		) cin 입력받을 변수 생성
+		) cin 입력받기
+
+		) switch case 
+			) 이름
+				) 	SearchUserName();
+			) 성별
+				)	여자냐 남자냐 물어봄
+				)	for () ~  
+						)	if 선택한 성별과 유저의 성별이 동일
+								)	PrintUserInfo()
+			) 나이	
+					) cout << 필터링 해서 찾을 나이대 입력 ex ) 10대 : 10, 20대 : 20 입력 ))))))
+					) int inputFilterAge
+					) cin >> inputFilterAge
+					
+					) for () ~ 
+						) if (현재 유저의 나이 / 10 == inputFilterAge / 10 )
+							) PrintUserInfo()
+
+			) SearchUserName() ----> 함수명 변경...
+			
+			++++
+			이름을 찾아 출력함 -> 찾는 회원이 없습니다 또 출력됨 ;;;;;;; cnt ++ ㄱㄱ

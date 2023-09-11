@@ -47,8 +47,8 @@ bool UserInfoAdmin::Selecting()
 	case PrintAllUser:
 		PrintAllUserInfo();
 		break;
-	case SearchUser:
-		SearchUserName();
+	case SearchUserInfo:
+		SearchUser();
 		break;
 	case ChangeUser:
 	{
@@ -173,17 +173,74 @@ void UserInfoAdmin::AlwaysLast()
 	system("cls");
 }
 
-void UserInfoAdmin:: SearchUserName()
+void UserInfoAdmin:: SearchUser()
 {
 	system("cls");
-	if (!users.size())
+	if (!users.size()) // ,조건 달아줘야 함
 	{
 		cout << " 저장된 회원이 없습니다. 회원 등록을 해주십시오." << endl;
 		AlwaysLast();
 		return;
 	}
-	cout << " 찾을 회원의 이름을 입력해주십시오. : ";
-	SearchForName();
+
+	cout << " 필터링을 이용한 검색을 진행합니다. 1. 이름, 2. 성별, 3. 나이 : ";
+	int inputFilter;
+	cin >> inputFilter;
+	bool isFound = false;
+
+	switch (inputFilter)
+	{
+		case 1:
+		{
+			auto iter = SearchForName();
+			if (iter == users.end()) 
+			{
+				cout << " 찾는 회원이 없습니다. " << endl;
+			}
+			else 
+			{
+				isFound = true;
+			}
+			break;
+		}
+		case 2:
+		{
+			cout << " 성별로 필터링을 진행합니다. 1. 남성만 출력, 2. 여성만 출력 : ";
+			int inputSex;
+			cin >> inputSex;
+
+			for (auto user = users.begin(); user != users.end(); ++user)
+			{
+				if (inputSex == (*user)->sex)
+				{
+					PrintUserInfo(user);
+					isFound = true;
+				}
+			}
+			break;
+		}
+		case 3:
+		{
+			cout << " 필터링해서 찾을 나이대 입력 ex) 10대 : 10, 20대 : 20... : ";
+			int inputFilterAge;
+			cin >> inputFilterAge;
+
+			for (auto user = users.begin(); user != users.end(); ++user)
+			{
+				if (((*user)->age / 10) == (inputFilterAge / 10))
+				{
+					PrintUserInfo(user);
+					isFound = true;
+				}
+			}
+			break;
+		}
+	}
+
+	if (!isFound)
+	{
+		cout << " 찾는 회원이 없습니다. " << endl;
+	}
 	AlwaysLast();
 }
 
