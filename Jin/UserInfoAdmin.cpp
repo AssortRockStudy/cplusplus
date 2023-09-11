@@ -118,6 +118,7 @@ void UserInfoAdmin::PrintUserInfo(vector<UserInfo*>::iterator _user)
 		cout << " 회원 성별 : 여성" << endl;
 }
 
+
 void UserInfoAdmin::PrintAllUserInfo()
 {
 	system("cls");
@@ -125,41 +126,37 @@ void UserInfoAdmin::PrintAllUserInfo()
 	int sortNum;
 	cin >> sortNum;
 
+	for (auto user = users.begin();user != users.end()-1;++user)
+	{
+		char s1[100];
+		strcpy_s(s1, 10, ((*user)->name).c_str());
+		char s2[100];
+		strcpy_s(s2, 10, ((*(user + 1))->name).c_str());
+		int returnStrcmp = strcmp(s1, s2);
 
-	// 구조 변경.. 해야 함.. 밥먹고..
-	// 포문 빼내고 strcpy 할 때 터지는 거 잡기.
+		if (0 < returnStrcmp)
+		{
+			string sTmp = (*user)->name;
+			(*user)->name = (*(user + 1))->name;
+			(*(user + 1))->name = sTmp;
+		}
+
+	}
+
 	if (1 == sortNum) // 오름차순
 	{
-		for (auto user = users.begin();user != users.end();++user)
-		{
-			char s1[100];
-			strcpy_s(s1, 10,((*user)->name).c_str());
-			char s2[100];
-			strcpy_s(s2, 10,((*(user+1))->name).c_str());
-
-			int returnStrcmp = strcmp(s1, s2);
-			
-			if (0 < returnStrcmp)
-			{
-				string sTmp = (*user)->name;
-				(*user)->name = (*(user + 1))->name;
-				(*(user + 1))->name = sTmp;
-			}
-		}
 		for (auto user = users.begin();user != users.end();++user)
 		{
 			PrintUserInfo(user);
 		}
 	}
-
 	else if (2 == sortNum) // 내림차순
 	{
-		reverse(users.begin(), users.end());
-
-		for (auto user = users.begin();user != users.end();++user)
+		for (auto user = users.end()-1;user != users.begin();--user)
 		{
 			PrintUserInfo(user);
 		}
+		PrintUserInfo(users.begin());
 	}
 
 	else
