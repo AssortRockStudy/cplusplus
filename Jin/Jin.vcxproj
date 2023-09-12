@@ -135,6 +135,9 @@
     <ClInclude Include="UserInfo.h" />
     <ClInclude Include="UserInfoAdmin.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="plan_UserInfo.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
